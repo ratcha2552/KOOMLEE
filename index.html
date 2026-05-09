@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)file:///C:/Users/HP/Downloads/football_cards_12.html -->
+<html lang="th"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FOOTBALL CARD</title>
+<link href="./FOOTBALL CARD_files/css2" rel="stylesheet">
+<style>
+:root{
+  --bg:#06060f;--s1:#0d0d1c;--s2:#13132a;--s3:#1a1a34;
+  --bd:rgba(255,255,255,0.07);--tx:#eeeef8;--mu:#7778a0;--ac:#f0c040;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--tx);font-family:'Sarabun',sans-serif;min-height:100vh;overflow-x:hidden;}
+
+/* ── ANIMATED BG PARTICLES ── */
+.bg-particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.bg-particles span{position:absolute;border-radius:50%;animation:float linear infinite;opacity:0;}
+@keyframes float{0%{transform:translateY(100vh) scale(0);opacity:0;}10%{opacity:.15;}90%{opacity:.08;}100%{transform:translateY(-10vh) scale(1.2);opacity:0;}}
+
+/* ── HEADER ── */
+.hdr{
+  position:relative;z-index:10;
+  background:linear-gradient(90deg,rgba(6,6,15,.98),rgba(16,12,30,.98));
+  border-bottom:1px solid rgba(240,192,64,.15);
+  padding:0 24px;
+  display:flex;align-items:center;justify-content:space-between;height:58px;
+}
+.hdr::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--ac),transparent);opacity:.3;}
+.logo{
+  font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:4px;
+  background:linear-gradient(90deg,#f0c040,#fff,#f0c040);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  display:flex;align-items:center;gap:10px;
+}
+.logo-icon{font-size:20px;-webkit-text-fill-color:initial;}
+.tabs{display:flex;gap:2px;}
+.tab{
+  padding:6px 16px;border-radius:6px;border:none;background:transparent;
+  color:var(--mu);font-family:'Sarabun',sans-serif;font-size:13px;cursor:pointer;transition:.2s;
+  position:relative;
+}
+.tab.on{color:#000;background:var(--ac);font-weight:700;}
+.tab:hover:not(.on){background:rgba(255,255,255,.06);color:var(--tx);}
+#syncStatus{font-size:12px;color:var(--mu);}
+
+/* ── PAGES ── */
+.pg{display:none;padding:24px;position:relative;z-index:1;}
+.pg.on{display:block;animation:pgIn .3s ease;}
+@keyframes pgIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+
+/* ── GALLERY ── */
+.gal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+.gal-hdr h2{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:3px;
+  background:linear-gradient(90deg,var(--ac),#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.fbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;}
+.fbar select,.fbar input{
+  background:var(--s1);border:1px solid var(--bd);color:var(--tx);
+  padding:7px 12px;border-radius:8px;font-family:'Sarabun',sans-serif;font-size:13px;
+  transition:.2s;
+}
+.fbar select:focus,.fbar input:focus{border-color:var(--ac);outline:none;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:20px;}
+
+/* ── CARD WRAPPER (click to open) ── */
+.ct-wrap{display:flex;flex-direction:column;gap:8px;}
+.ct{
+  cursor:pointer;perspective:1000px;height:290px;
+  transition:transform .25s,filter .25s;
+  border-radius:14px;
+}
+.ct:hover{transform:translateY(-6px) scale(1.02);}
+.ct:hover .ct-front canvas{filter:brightness(1.08);}
+.ct-inner{
+  position:relative;width:100%;height:100%;
+  transform-style:preserve-3d;
+  transition:transform .6s cubic-bezier(.4,0,.2,1);
+}
+.ct.flipped .ct-inner{transform:rotateY(180deg);}
+.ct-front,.ct-back{
+  position:absolute;inset:0;backface-visibility:hidden;
+  border-radius:14px;overflow:hidden;
+  box-shadow:0 8px 32px rgba(0,0,0,.5);
+}
+.ct-back{transform:rotateY(180deg);}
+.ct-front canvas,.ct-back canvas{width:100%;height:100%;display:block;border-radius:14px;}
+
+/* card action row */
+.ct-actions{display:flex;gap:5px;justify-content:center;}
+.ca-btn{
+  padding:4px 12px;border-radius:20px;border:1px solid var(--bd);
+  background:rgba(13,13,28,.85);color:var(--mu);
+  font-family:'Sarabun',sans-serif;font-size:11px;cursor:pointer;transition:.15s;
+  backdrop-filter:blur(4px);
+}
+.ca-btn:hover,.ca-btn.on{background:var(--ac);color:#000;border-color:var(--ac);font-weight:700;}
+.ca-dl{
+  width:26px;height:26px;border-radius:50%;border:1px solid var(--bd);
+  background:rgba(13,13,28,.85);color:var(--mu);cursor:pointer;font-size:12px;
+  display:flex;align-items:center;justify-content:center;transition:.15s;
+}
+.ca-dl:hover{background:var(--ac);color:#000;border-color:var(--ac);}
+
+.empty{grid-column:1/-1;text-align:center;padding:80px 0;color:var(--mu);}
+.empty-icon{font-size:56px;margin-bottom:16px;opacity:.3;display:block;}
+
+/* ── MODAL ── */
+.ov{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,0);z-index:1000;
+  align-items:center;justify-content:center;padding:16px;
+  backdrop-filter:blur(0px);transition:background .3s,backdrop-filter .3s;
+}
+.ov.on{display:flex;background:rgba(0,0,0,.88);backdrop-filter:blur(6px);}
+.mod{
+  background:linear-gradient(160deg,var(--s1),var(--s2));
+  border:1px solid rgba(240,192,64,.12);
+  border-radius:20px;width:100%;max-width:840px;max-height:92vh;
+  overflow-y:auto;padding:28px;position:relative;
+  box-shadow:0 24px 80px rgba(0,0,0,.7);
+  animation:modIn .35s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes modIn{from{opacity:0;transform:scale(.9) translateY(20px);}to{opacity:1;transform:none;}}
+.mcls{
+  position:absolute;top:16px;right:16px;
+  background:rgba(255,255,255,.06);border:1px solid var(--bd);color:var(--tx);
+  width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:16px;
+  transition:.2s;
+}
+.mcls:hover{background:rgba(255,255,255,.14);}
+.mtit{
+  font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;margin-bottom:20px;
+  background:linear-gradient(90deg,var(--ac),#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.mdet{display:grid;grid-template-columns:250px 1fr;gap:26px;align-items:start;}
+.mdet canvas{width:100%;border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.6);}
+.dname{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:2px;line-height:1.1;}
+.dmeta{display:flex;gap:8px;margin:8px 0 16px;flex-wrap:wrap;}
+.bdg{padding:3px 11px;border-radius:20px;font-size:12px;font-weight:700;}
+.bp{background:#1e3a2a;color:#4dff91;}
+.bt{background:#1e2a3a;color:#4db8ff;}
+.br{background:#2a1e00;color:var(--ac);}
+
+/* view toggle inside modal */
+.view-toggle{display:flex;gap:5px;margin-bottom:14px;}
+.vt-btn{
+  padding:5px 14px;border-radius:8px;border:1px solid var(--bd);
+  background:transparent;color:var(--mu);font-family:'Sarabun',sans-serif;font-size:12px;cursor:pointer;transition:.15s;
+}
+.vt-btn.on{background:var(--ac);color:#000;font-weight:700;border-color:var(--ac);}
+
+/* stat bars */
+.sbars{margin-bottom:16px;}
+.srow{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.slbl{font-size:10px;font-weight:700;color:var(--mu);width:32px;letter-spacing:.5px;}
+.sbw{flex:1;height:7px;background:rgba(255,255,255,.07);border-radius:4px;overflow:hidden;}
+.sbf{height:100%;border-radius:4px;width:0%;transition:width 1.2s cubic-bezier(.16,1,.3,1);}
+.svl{font-size:13px;font-weight:700;width:28px;text-align:right;}
+.snm{font-size:10px;color:var(--mu);min-width:76px;}
+
+/* playstyle chips */
+.pss{margin-bottom:16px;}
+.pss h4{font-size:10px;color:var(--mu);letter-spacing:1px;margin-bottom:7px;text-transform:uppercase;}
+.psw{display:flex;flex-wrap:wrap;gap:5px;}
+.psc{padding:3px 11px;border-radius:20px;font-size:11px;font-weight:700;border:1px solid;}
+
+/* ── RANKING PAGE ── */
+.rk-stat-tabs{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:16px;}
+.rk-st{
+  padding:5px 14px;border-radius:6px;border:none;
+  background:var(--s2);color:var(--mu);
+  font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;cursor:pointer;transition:.15s;
+}
+.rk-st.on{background:var(--ac);color:#000;}
+.rk-st:hover:not(.on){background:var(--s3);color:var(--tx);}
+.rk-bar-section{background:var(--s1);border:1px solid var(--bd);border-radius:14px;padding:20px;margin-bottom:20px;}
+.rk-bar-title{font-family:'Bebas Neue',sans-serif;font-size:12px;letter-spacing:2px;color:var(--mu);margin-bottom:14px;}
+.rk-bar-list{display:flex;flex-direction:column;gap:5px;}
+.rk-bar-row{display:flex;align-items:center;gap:10px;padding:4px 0;cursor:pointer;border-radius:6px;transition:.12s;}
+.rk-bar-row:hover{background:rgba(255,255,255,.03);padding:4px 6px;margin:0 -6px;}
+.rk-bar-avatar{width:30px;height:30px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--s3);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:12px;color:var(--ac);}
+.rk-bar-avatar img{width:100%;height:100%;object-fit:cover;}
+.rk-bar-name{width:100px;flex-shrink:0;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rk-bar-track{flex:1;height:18px;background:rgba(255,255,255,.05);border-radius:4px;overflow:hidden;}
+.rk-bar-fill{height:100%;border-radius:4px;transition:width 1s cubic-bezier(.16,1,.3,1);display:flex;align-items:center;padding-left:8px;width:0%;}
+.rk-bar-fill-val{font-family:'Bebas Neue',sans-serif;font-size:12px;color:rgba(0,0,0,.85);font-weight:900;}
+.rk-table-section{background:var(--s1);border:1px solid var(--bd);border-radius:14px;overflow:hidden;margin-bottom:20px;}
+.rk-table-title{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;padding:14px 18px 12px;border-bottom:1px solid var(--bd);}
+.rk-tbl-wrap{overflow-x:auto;}
+table.rktbl{width:100%;border-collapse:collapse;font-size:12px;min-width:700px;}
+table.rktbl thead tr{background:rgba(255,255,255,.03);}
+table.rktbl th{padding:8px 10px;text-align:left;font-size:10px;font-weight:700;color:var(--mu);letter-spacing:.8px;text-transform:uppercase;white-space:nowrap;cursor:pointer;user-select:none;transition:.15s;}
+table.rktbl th:hover{color:var(--ac);}
+table.rktbl th.son{color:var(--ac);}
+table.rktbl td{padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.03);vertical-align:middle;white-space:nowrap;}
+table.rktbl tbody tr{cursor:pointer;transition:.12s;}
+table.rktbl tbody tr:hover td{background:rgba(255,255,255,.04);}
+table.rktbl tbody tr:last-child td{border-bottom:none;}
+.rk-rank-no{font-family:'Bebas Neue',sans-serif;font-size:17px;width:26px;text-align:center;}
+.rk-rank-no.g{color:#f0c040;}.rk-rank-no.s{color:#c8c8d8;}.rk-rank-no.b{color:#cd7f32;}
+.rk-player-cell{display:flex;align-items:center;gap:8px;}
+.rk-av{width:28px;height:28px;border-radius:50%;overflow:hidden;flex-shrink:0;background:var(--s3);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:11px;color:var(--ac);}
+.rk-av img{width:100%;height:100%;object-fit:cover;}
+.rk-pname{font-weight:700;font-size:12px;}
+.rk-pos-badge{display:inline-block;padding:1px 6px;border-radius:4px;font-size:10px;font-weight:700;background:rgba(77,255,145,.12);color:#4dff91;}
+.mini-bar{display:flex;align-items:center;gap:5px;}
+.mini-bar-track{width:44px;height:4px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;flex-shrink:0;}
+.mini-bar-fill{height:100%;border-radius:2px;}
+.mini-bar-val{font-family:'Bebas Neue',sans-serif;font-size:13px;min-width:22px;}
+.ovr-chip{font-family:'Bebas Neue',sans-serif;font-size:17px;}
+
+/* ── ADMIN ── */
+.alog{max-width:340px;margin:60px auto;background:var(--s1);border:1px solid rgba(240,192,64,.2);border-radius:18px;padding:32px;text-align:center;}
+.alog h2{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--ac);margin-bottom:6px;}
+.alog p{color:var(--mu);font-size:13px;margin-bottom:18px;}
+.alog input{width:100%;background:var(--s2);border:1px solid var(--bd);color:var(--tx);padding:12px;border-radius:10px;font-family:'Sarabun',sans-serif;font-size:22px;letter-spacing:10px;text-align:center;margin-bottom:14px;transition:.2s;}
+.alog input:focus{border-color:var(--ac);outline:none;}
+.apan{max-width:820px;margin:0 auto;}
+.asec{background:var(--s1);border:1px solid var(--bd);border-radius:14px;padding:20px;margin-bottom:18px;}
+.asec h3{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1.5px;color:var(--ac);margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+.fg label{display:block;font-size:10px;color:var(--mu);letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px;font-weight:700;}
+.fg input,.fg select{width:100%;background:var(--s2);border:1px solid var(--bd);color:var(--tx);padding:8px 11px;border-radius:8px;font-family:'Sarabun',sans-serif;font-size:14px;transition:.2s;}
+.fg input:focus,.fg select:focus{border-color:var(--ac);outline:none;}
+.ssr{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+.ssr .lbl{font-size:10px;font-weight:700;color:var(--mu);width:36px;text-transform:uppercase;}
+.ssr input[type=range]{flex:1;accent-color:var(--ac);}
+.ssr .num{font-size:13px;font-weight:700;width:26px;text-align:right;}
+.ssr .nm2{font-size:10px;color:var(--mu);width:90px;}
+.pslist{display:flex;flex-direction:column;gap:5px;margin-bottom:10px;}
+.psitem{display:flex;align-items:center;gap:8px;background:var(--s2);border-radius:8px;padding:7px 10px;font-size:13px;}
+.psaddrow{display:flex;gap:8px;align-items:center;}
+.psaddrow input[type=text]{flex:1;background:var(--s2);border:1px solid var(--bd);color:var(--tx);padding:7px 10px;border-radius:8px;font-family:'Sarabun',sans-serif;font-size:13px;}
+.pdrop{border:2px dashed var(--bd);border-radius:10px;padding:14px;text-align:center;cursor:pointer;color:var(--mu);font-size:13px;transition:.15s;}
+.pdrop:hover{border-color:var(--ac);color:var(--ac);}
+.ti{display:flex;align-items:center;justify-content:space-between;background:var(--s2);border-radius:8px;padding:9px 13px;font-size:14px;margin-bottom:5px;}
+.dot{width:12px;height:12px;border-radius:50%;display:inline-block;margin-right:7px;}
+.btnp{padding:9px 20px;background:var(--ac);color:#000;border:none;border-radius:9px;font-family:'Sarabun',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:.15s;}
+.btnp:hover{opacity:.85;}
+.btnp:active{transform:scale(.97);}
+.btns{padding:7px 16px;background:var(--s2);color:var(--tx);border:1px solid var(--bd);border-radius:9px;font-family:'Sarabun',sans-serif;font-size:13px;cursor:pointer;}
+.btnd{padding:5px 12px;background:#cc2233;color:#fff;border:none;border-radius:7px;font-size:12px;cursor:pointer;font-family:'Sarabun',sans-serif;}
+.btne{padding:5px 12px;background:#1a3a5a;color:#4db8ff;border:1px solid #4db8ff44;border-radius:7px;font-size:12px;cursor:pointer;font-family:'Sarabun',sans-serif;}
+/* tier admin */
+.tier-row{display:grid;grid-template-columns:40px 1fr 60px 28px 28px 28px 90px 28px;gap:6px;align-items:center;background:var(--s2);border-radius:8px;padding:8px 10px;margin-bottom:6px;font-size:12px;}
+.tier-swatch{width:24px;height:24px;border-radius:50%;flex-shrink:0;border:2px solid rgba(255,255,255,.15);}
+.tier-row input[type=text],.tier-row input[type=number]{background:var(--s3);border:1px solid var(--bd);color:var(--tx);padding:4px 7px;border-radius:6px;font-family:'Sarabun',sans-serif;font-size:12px;width:100%;}
+.tier-row input[type=color]{width:28px;height:28px;padding:2px;border:none;background:none;cursor:pointer;border-radius:6px;}
+.tier-row select{background:var(--s3);border:1px solid var(--bd);color:var(--tx);padding:3px 5px;border-radius:6px;font-family:'Sarabun',sans-serif;font-size:11px;width:100%;}
+.tier-preview-canvas{border-radius:6px;}
+.ptbl{width:100%;border-collapse:collapse;font-size:13px;}
+.ptbl th{text-align:left;color:var(--mu);font-size:10px;letter-spacing:.5px;text-transform:uppercase;padding:5px 8px;border-bottom:1px solid var(--bd);}
+.ptbl td{padding:9px 8px;border-bottom:1px solid rgba(255,255,255,.03);vertical-align:middle;}
+.ptbl tr:hover td{background:rgba(255,255,255,.02);}
+.ovrb{font-family:'Bebas Neue',sans-serif;font-size:46px;color:var(--ac);text-align:center;line-height:1;margin:6px 0;}
+.tierlbl{text-align:center;font-size:11px;color:var(--mu);letter-spacing:1px;text-transform:uppercase;}
+.pstag{padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;user-select:none;border:1px solid;transition:.12s;}
+
+/* Edit mode highlight */
+.edit-mode-banner{background:linear-gradient(90deg,#1a2a1a,#0d1a0d);border:1px solid #3ddc8466;border-radius:10px;padding:10px 14px;margin-bottom:14px;font-size:13px;color:#3ddc84;display:none;}
+.edit-mode-banner.on{display:flex;align-items:center;gap:8px;}
+
+/* Notif */
+.notif{position:fixed;bottom:24px;right:24px;padding:12px 20px;border-radius:10px;font-weight:700;font-size:13px;z-index:9999;transform:translateY(80px);opacity:0;transition:.35s cubic-bezier(.34,1.56,.64,1);box-shadow:0 8px 24px rgba(0,0,0,.4);}
+.notif.on{transform:translateY(0);opacity:1;}
+.notif.ok{background:var(--ac);color:#000;}
+.notif.err{background:#cc2233;color:#fff;}
+
+@keyframes sparkle{0%,100%{opacity:.06;}50%{opacity:.18;}}
+@media(max-width:600px){.mdet{grid-template-columns:1fr;}.fr{grid-template-columns:1fr;}.hdr{padding:0 12px;}.logo{font-size:16px;letter-spacing:2px;}}
+</style>
+</head>
+<body>
+
+<!-- animated bg -->
+<div class="bg-particles" id="bgp"><span style="width: 2.77792px; height: 2.77792px; left: 64.2098%; background: rgb(240, 192, 64); animation-duration: 19.3387s; animation-delay: 2.20869s;"></span><span style="width: 1.16697px; height: 1.16697px; left: 41.6006%; background: rgb(240, 192, 64); animation-duration: 16.7662s; animation-delay: 3.09468s;"></span><span style="width: 3.61607px; height: 3.61607px; left: 8.34997%; background: rgb(240, 192, 64); animation-duration: 9.48957s; animation-delay: 9.59753s;"></span><span style="width: 1.39433px; height: 1.39433px; left: 96.7585%; background: rgb(240, 192, 64); animation-duration: 11.9489s; animation-delay: 0.0395497s;"></span><span style="width: 3.38277px; height: 3.38277px; left: 52.7165%; background: rgb(240, 192, 64); animation-duration: 19.7227s; animation-delay: 2.54605s;"></span><span style="width: 2.02793px; height: 2.02793px; left: 41.5905%; background: rgb(240, 192, 64); animation-duration: 13.9447s; animation-delay: 5.3241s;"></span><span style="width: 2.5905px; height: 2.5905px; left: 82.9063%; background: rgb(240, 192, 64); animation-duration: 20.535s; animation-delay: 0.2494s;"></span><span style="width: 3.39244px; height: 3.39244px; left: 32.9847%; background: rgb(240, 192, 64); animation-duration: 15.9889s; animation-delay: 9.7886s;"></span><span style="width: 1.88175px; height: 1.88175px; left: 79.4674%; background: rgb(240, 192, 64); animation-duration: 17.1399s; animation-delay: 3.86663s;"></span><span style="width: 2.90461px; height: 2.90461px; left: 15.643%; background: rgb(240, 192, 64); animation-duration: 9.29282s; animation-delay: 0.639769s;"></span><span style="width: 1.77832px; height: 1.77832px; left: 15.046%; background: rgb(240, 192, 64); animation-duration: 21.6354s; animation-delay: 3.49236s;"></span><span style="width: 1.97025px; height: 1.97025px; left: 20.2038%; background: rgb(240, 192, 64); animation-duration: 9.29246s; animation-delay: 4.43725s;"></span><span style="width: 1.37414px; height: 1.37414px; left: 44.7346%; background: rgb(240, 192, 64); animation-duration: 14.9286s; animation-delay: 2.34989s;"></span><span style="width: 1.02148px; height: 1.02148px; left: 95.9329%; background: rgb(240, 192, 64); animation-duration: 14.6707s; animation-delay: 9.68686s;"></span><span style="width: 2.00952px; height: 2.00952px; left: 26.3302%; background: rgb(240, 192, 64); animation-duration: 19.0753s; animation-delay: 0.221793s;"></span><span style="width: 3.84099px; height: 3.84099px; left: 14.4867%; background: rgb(240, 192, 64); animation-duration: 10.2027s; animation-delay: 2.35364s;"></span><span style="width: 2.29251px; height: 2.29251px; left: 45.1188%; background: rgb(240, 192, 64); animation-duration: 16.9624s; animation-delay: 1.92472s;"></span><span style="width: 3.94527px; height: 3.94527px; left: 57.6352%; background: rgb(240, 192, 64); animation-duration: 20.1382s; animation-delay: 8.72755s;"></span></div>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="logo">
+    <span class="logo-icon">⚽</span>
+    FOOTBALL CARD
+  </div>
+  <div class="tabs">
+    <button class="tab" onclick="nav(&#39;gal&#39;,this)">การ์ด</button>
+    <button class="tab" onclick="nav(&#39;rank&#39;,this)">อันดับ</button>
+    <button class="tab on" onclick="nav(&#39;adm&#39;,this)">แอดมิน</button>
+  </div>
+</div>
+
+<!-- ══ GALLERY ══ -->
+<div class="pg" id="pg-gal">
+  <div class="gal-hdr">
+    <h2>นักเตะทั้งหมด</h2>
+  </div>
+  <div class="fbar">
+    <input id="fsearch" type="text" placeholder="🔍 ค้นหาชื่อ..." oninput="renderGallery()" style="min-width:160px">
+    <select id="fpos" onchange="renderGallery()">
+      <option value="">ทุกตำแหน่ง</option>
+      <option>ST</option><option>CF</option><option>LW</option><option>RW</option>
+      <option>CAM</option><option>CM</option><option>CDM</option>
+      <option>LB</option><option>RB</option><option>CB</option><option>GK</option>
+    </select>
+    <select id="fteam" onchange="renderGallery()"><option value="">ทุกทีม</option><option value="1778306556974">MINT TUTOR</option><option value="1778306572598">GREENFENCE</option></select>
+    <select id="fstatus" onchange="setStatusFromSelect(this.value)"><option value="">ทุกสถานะ</option><option value="STANDARD">STANDARD</option><option value="PRIME">PRIME</option></select>
+    <select id="fsort" onchange="renderGallery()">
+      <option value="ovr">Overall ↓</option>
+      <option value="name">ชื่อ A→Z</option>
+    </select>
+  </div>
+  <div class="grid" id="grid"><div class="empty"><span class="empty-icon">⚽</span>ยังไม่มีนักเตะ<br><span style="font-size:13px">แอดมินสามารถเพิ่มนักเตะได้</span></div></div>
+</div>
+
+<!-- ══ RANKING ══ -->
+<div class="pg" id="pg-rank">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap">
+    <h2 style="font-family:&#39;Bebas Neue&#39;,sans-serif;font-size:24px;letter-spacing:3px;background:linear-gradient(90deg,var(--ac),#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;flex-shrink:0">🏅 อันดับนักเตะ</h2>
+    <div class="rk-stat-tabs" id="rkStatTabs"></div>
+  </div>
+  <div class="rk-bar-section">
+    <div class="rk-bar-title" id="rkBarTitle">RANKING — OVERALL</div>
+    <div class="rk-bar-list" id="rkBarList"></div>
+  </div>
+  <div class="rk-table-section">
+    <div class="rk-table-title">ตารางจัดอันดับ — <span id="rkTblLabel" style="color:var(--ac)">OVERALL</span></div>
+    <div class="rk-tbl-wrap">
+      <table class="rktbl"><thead id="rkThead"></thead><tbody id="rkTbody"></tbody></table>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ADMIN ══ -->
+<div class="pg on" id="pg-adm">
+  <div id="alog" style="display: none;">
+    <div class="alog">
+      <h2>🔒 แอดมิน</h2>
+      <p>กรุณาใส่รหัสผู้สร้าง</p>
+      <input type="password" id="apwd" maxlength="10" placeholder="••••" onkeydown="if(event.key===&#39;Enter&#39;)doLogin()">
+      <button class="btnp" onclick="doLogin()">เข้าสู่ระบบ</button>
+      <p id="lerr" style="color:#ff4455;margin-top:10px;font-size:12px"></p>
+    </div>
+  </div>
+  <div id="apan" class="apan" style="display: block;">
+
+    <!-- Firebase Banner -->
+    <div id="fbBanner" style="background:linear-gradient(135deg,#1a1200,#2a1c00);border:1px solid #f0c04044;border-radius:14px;padding:18px;margin-bottom:18px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <div style="font-family:&#39;Bebas Neue&#39;,sans-serif;font-size:17px;letter-spacing:1.5px;color:#f0c040">🔥 Firebase Real-time Sync</div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span id="syncStatus" style="font-size:12px;color:var(--mu);">🟢 ซิงค์แล้ว</span>
+          <button class="btns" onclick="syncFromFirebase()" style="font-size:12px;padding:4px 12px;">↻ ซิงค์ตอนนี้</button>
+        </div>
+      </div>
+      <div id="fbStatusRow" style="font-size:13px;margin-bottom:12px"><span style="color:#3ddc84">✅ เชื่อมต่อ Firebase แล้ว — ทุกคนเห็นข้อมูลเดียวกัน</span></div>
+      <div class="fg">
+        <label>Firebase Database URL</label>
+        <div style="display:flex;gap:8px">
+          <input id="fbUrlInput" type="text" placeholder="https://your-project-default-rtdb.firebaseio.com">
+          <button class="btnp" onclick="saveFbUrl()">บันทึก</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEAMS -->
+    <div class="asec">
+      <h3>🛡 ทีม</h3>
+      <div class="fr">
+        <div class="fg"><label>ชื่อทีม</label><input id="tname" type="text" placeholder="เช่น Bangkok United"></div>
+        <div class="fg"><label>สีทีม</label><input id="tcolor" type="color" value="#4db8ff" style="height:40px;padding:3px;"></div>
+      </div>
+      <button class="btnp" onclick="addTeam()" style="margin-bottom:12px">+ เพิ่มทีม</button>
+      <div id="tlist"><div class="ti"><span><span class="dot" style="background:#00ffbf"></span>MINT TUTOR</span><button class="btnd" onclick="delTeam(1778306556974)">🗑</button></div><div class="ti"><span><span class="dot" style="background:#00a849"></span>GREENFENCE</span><button class="btnd" onclick="delTeam(1778306572598)">🗑</button></div></div>
+    </div>
+
+    <!-- PLAYSTYLES -->
+    <div class="asec">
+      <h3>⚡ Playstyle</h3>
+      <div class="pslist" id="psAdminList"><div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:#ff0000;display:inline-block;flex-shrink:0"></span>
+    <span style="color:#ff0000;font-weight:700;flex:1">POACHER</span>
+    <button class="btnd" onclick="delPs(&#39;POACHER&#39;)">✕</button>
+  </div><div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:#ff7300;display:inline-block;flex-shrink:0"></span>
+    <span style="color:#ff7300;font-weight:700;flex:1">FOX IN THE BOX</span>
+    <button class="btnd" onclick="delPs(&#39;FOX IN THE BOX&#39;)">✕</button>
+  </div><div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:#a34900;display:inline-block;flex-shrink:0"></span>
+    <span style="color:#a34900;font-weight:700;flex:1">TARET MAN</span>
+    <button class="btnd" onclick="delPs(&#39;TARET MAN&#39;)">✕</button>
+  </div><div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:#6b0000;display:inline-block;flex-shrink:0"></span>
+    <span style="color:#6b0000;font-weight:700;flex:1">DEEP LYING</span>
+    <button class="btnd" onclick="delPs(&#39;DEEP LYING&#39;)">✕</button>
+  </div><div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:#ff00f7;display:inline-block;flex-shrink:0"></span>
+    <span style="color:#ff00f7;font-weight:700;flex:1">WINGER</span>
+    <button class="btnd" onclick="delPs(&#39;WINGER&#39;)">✕</button>
+  </div><div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:#ff94fb;display:inline-block;flex-shrink:0"></span>
+    <span style="color:#ff94fb;font-weight:700;flex:1">ROAMING FLANK</span>
+    <button class="btnd" onclick="delPs(&#39;ROAMING FLANK&#39;)">✕</button>
+  </div><div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:#00ff2a;display:inline-block;flex-shrink:0"></span>
+    <span style="color:#00ff2a;font-weight:700;flex:1">PLAY MAKER</span>
+    <button class="btnd" onclick="delPs(&#39;PLAY MAKER&#39;)">✕</button>
+  </div><div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:#00ffaa;display:inline-block;flex-shrink:0"></span>
+    <span style="color:#00ffaa;font-weight:700;flex:1">HOLE PLAYER</span>
+    <button class="btnd" onclick="delPs(&#39;HOLE PLAYER&#39;)">✕</button>
+  </div><div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:#00a313;display:inline-block;flex-shrink:0"></span>
+    <span style="color:#00a313;font-weight:700;flex:1">BOX TO BOX</span>
+    <button class="btnd" onclick="delPs(&#39;BOX TO BOX&#39;)">✕</button>
+  </div><div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:#00570a;display:inline-block;flex-shrink:0"></span>
+    <span style="color:#00570a;font-weight:700;flex:1">ANCHOR MAN</span>
+    <button class="btnd" onclick="delPs(&#39;ANCHOR MAN&#39;)">✕</button>
+  </div><div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:#009463;display:inline-block;flex-shrink:0"></span>
+    <span style="color:#009463;font-weight:700;flex:1">ORCHRESTRATOR</span>
+    <button class="btnd" onclick="delPs(&#39;ORCHRESTRATOR&#39;)">✕</button>
+  </div><div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:#740094;display:inline-block;flex-shrink:0"></span>
+    <span style="color:#740094;font-weight:700;flex:1">ATK FULLBACK</span>
+    <button class="btnd" onclick="delPs(&#39;ATK FULLBACK&#39;)">✕</button>
+  </div><div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:#9800c2;display:inline-block;flex-shrink:0"></span>
+    <span style="color:#9800c2;font-weight:700;flex:1">DEF FULLBACK</span>
+    <button class="btnd" onclick="delPs(&#39;DEF FULLBACK&#39;)">✕</button>
+  </div><div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:#110094;display:inline-block;flex-shrink:0"></span>
+    <span style="color:#110094;font-weight:700;flex:1">DESTROYER</span>
+    <button class="btnd" onclick="delPs(&#39;DESTROYER&#39;)">✕</button>
+  </div><div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:#8170ff;display:inline-block;flex-shrink:0"></span>
+    <span style="color:#8170ff;font-weight:700;flex:1">BUILD UP</span>
+    <button class="btnd" onclick="delPs(&#39;BUILD UP&#39;)">✕</button>
+  </div><div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:#1e00ff;display:inline-block;flex-shrink:0"></span>
+    <span style="color:#1e00ff;font-weight:700;flex:1">EXTRA FRONTMAN</span>
+    <button class="btnd" onclick="delPs(&#39;EXTRA FRONTMAN&#39;)">✕</button>
+  </div><div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:#fff700;display:inline-block;flex-shrink:0"></span>
+    <span style="color:#fff700;font-weight:700;flex:1">ATK GK</span>
+    <button class="btnd" onclick="delPs(&#39;ATK GK&#39;)">✕</button>
+  </div><div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:#858000;display:inline-block;flex-shrink:0"></span>
+    <span style="color:#858000;font-weight:700;flex:1">DEF GK</span>
+    <button class="btnd" onclick="delPs(&#39;DEF GK&#39;)">✕</button>
+  </div></div>
+      <div class="psaddrow">
+        <input type="text" id="psNewName" placeholder="ชื่อ playstyle ใหม่...">
+        <input type="color" id="psNewColor" value="#f0c040" style="width:36px;height:36px;padding:2px;border:none;background:none;cursor:pointer;border-radius:50%;flex-shrink:0;">
+        <button class="btnp" onclick="addPs()">+ เพิ่ม</button>
+      </div>
+    </div>
+
+    <!-- STATUS OPTIONS -->
+    <div class="asec">
+      <h3>🏷️ สถานะนักเตะ</h3>
+      <p style="font-size:12px;color:var(--mu);margin-bottom:10px">กำหนดตัวเลือกสถานะที่แอดมินสามารถใส่ให้นักเตะแต่ละคน เช่น บาดเจ็บ, ฟอร์มร้อน, ห้ามลง ฯลฯ</p>
+      <div class="pslist" id="statusAdminList"><div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:#595959;display:inline-block;flex-shrink:0"></span>
+    <span style="color:#595959;font-weight:700;flex:1">STANDARD</span>
+    <button class="btnd" onclick="delStatus(&#39;STANDARD&#39;)">✕</button>
+  </div><div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:#ffea00;display:inline-block;flex-shrink:0"></span>
+    <span style="color:#ffea00;font-weight:700;flex:1">PRIME</span>
+    <button class="btnd" onclick="delStatus(&#39;PRIME&#39;)">✕</button>
+  </div></div>
+      <div class="psaddrow">
+        <input type="text" id="stNewName" placeholder="ชื่อสถานะ เช่น บาดเจ็บ, ฟอร์มร้อน...">
+        <input type="color" id="stNewColor" value="#ff4455" style="width:36px;height:36px;padding:2px;border:none;background:none;cursor:pointer;border-radius:50%;flex-shrink:0;">
+        <button class="btnp" onclick="addStatus()">+ เพิ่ม</button>
+      </div>
+    </div>
+
+    <!-- CARD DESIGN MANAGER -->
+    <div class="asec">
+      <h3>🎨 ดีไซน์การ์ดตามระดับ OVR</h3>
+      <p style="font-size:12px;color:var(--mu);margin-bottom:14px">กำหนดช่วง OVR, สีหลัก, สีพื้นหลัง และสไตล์การ์ดสำหรับแต่ละระดับ — เรียงจากน้อยไปมาก</p>
+      <div id="tierAdminList"><div class="tier-row" id="tierRow_BRONZE">
+      <canvas id="tierPrev_BRONZE" class="tier-preview-canvas" width="40" height="56"></canvas>
+      <div>
+        <div style="font-weight:700;font-size:13px;margin-bottom:2px">BRONZE</div>
+        <div style="font-size:10px;color:var(--mu)">OVR ≥ 60 · FIFA Card</div>
+      </div>
+      <input type="number" min="0" max="99" value="60" title="OVR ขั้นต่ำ" onchange="updateTier(&#39;BRONZE&#39;,&#39;min&#39;,this.value)">
+      <input type="color" value="#8f4500" title="สีหลัก (accent)" oninput="updateTier(&#39;BRONZE&#39;,&#39;acc&#39;,this.value)">
+      <input type="color" value="#100000" title="พื้นหลัง 1" oninput="updateTier(&#39;BRONZE&#39;,&#39;bg1&#39;,this.value)">
+      <input type="color" value="#200008" title="พื้นหลัง 2" oninput="updateTier(&#39;BRONZE&#39;,&#39;bg2&#39;,this.value)">
+      <select title="สไตล์การ์ด" onchange="updateTier(&#39;BRONZE&#39;,&#39;design&#39;,this.value)">
+        <option value="classic">Classic</option><option value="fifa" selected="">FIFA Card</option><option value="neon">Neon</option><option value="holo">Holographic</option>
+      </select>
+      <button class="btnd" onclick="delTier(&#39;BRONZE&#39;)">🗑</button>
+    </div><div class="tier-row" id="tierRow_SILVER">
+      <canvas id="tierPrev_SILVER" class="tier-preview-canvas" width="40" height="56"></canvas>
+      <div>
+        <div style="font-weight:700;font-size:13px;margin-bottom:2px">SILVER</div>
+        <div style="font-size:10px;color:var(--mu)">OVR ≥ 70 · FIFA Card</div>
+      </div>
+      <input type="number" min="0" max="99" value="70" title="OVR ขั้นต่ำ" onchange="updateTier(&#39;SILVER&#39;,&#39;min&#39;,this.value)">
+      <input type="color" value="#8f4500" title="สีหลัก (accent)" oninput="updateTier(&#39;SILVER&#39;,&#39;acc&#39;,this.value)">
+      <input type="color" value="#100000" title="พื้นหลัง 1" oninput="updateTier(&#39;SILVER&#39;,&#39;bg1&#39;,this.value)">
+      <input type="color" value="#200008" title="พื้นหลัง 2" oninput="updateTier(&#39;SILVER&#39;,&#39;bg2&#39;,this.value)">
+      <select title="สไตล์การ์ด" onchange="updateTier(&#39;SILVER&#39;,&#39;design&#39;,this.value)">
+        <option value="classic">Classic</option><option value="fifa" selected="">FIFA Card</option><option value="neon">Neon</option><option value="holo">Holographic</option>
+      </select>
+      <button class="btnd" onclick="delTier(&#39;SILVER&#39;)">🗑</button>
+    </div><div class="tier-row" id="tierRow_GOLD">
+      <canvas id="tierPrev_GOLD" class="tier-preview-canvas" width="40" height="56"></canvas>
+      <div>
+        <div style="font-weight:700;font-size:13px;margin-bottom:2px">GOLD</div>
+        <div style="font-size:10px;color:var(--mu)">OVR ≥ 80 · FIFA Card</div>
+      </div>
+      <input type="number" min="0" max="99" value="80" title="OVR ขั้นต่ำ" onchange="updateTier(&#39;GOLD&#39;,&#39;min&#39;,this.value)">
+      <input type="color" value="#8f4500" title="สีหลัก (accent)" oninput="updateTier(&#39;GOLD&#39;,&#39;acc&#39;,this.value)">
+      <input type="color" value="#100000" title="พื้นหลัง 1" oninput="updateTier(&#39;GOLD&#39;,&#39;bg1&#39;,this.value)">
+      <input type="color" value="#200008" title="พื้นหลัง 2" oninput="updateTier(&#39;GOLD&#39;,&#39;bg2&#39;,this.value)">
+      <select title="สไตล์การ์ด" onchange="updateTier(&#39;GOLD&#39;,&#39;design&#39;,this.value)">
+        <option value="classic">Classic</option><option value="fifa" selected="">FIFA Card</option><option value="neon">Neon</option><option value="holo">Holographic</option>
+      </select>
+      <button class="btnd" onclick="delTier(&#39;GOLD&#39;)">🗑</button>
+    </div><div class="tier-row" id="tierRow_PLATINUM">
+      <canvas id="tierPrev_PLATINUM" class="tier-preview-canvas" width="40" height="56"></canvas>
+      <div>
+        <div style="font-weight:700;font-size:13px;margin-bottom:2px">PLATINUM</div>
+        <div style="font-size:10px;color:var(--mu)">OVR ≥ 85 · FIFA Card</div>
+      </div>
+      <input type="number" min="0" max="99" value="85" title="OVR ขั้นต่ำ" onchange="updateTier(&#39;PLATINUM&#39;,&#39;min&#39;,this.value)">
+      <input type="color" value="#8f4500" title="สีหลัก (accent)" oninput="updateTier(&#39;PLATINUM&#39;,&#39;acc&#39;,this.value)">
+      <input type="color" value="#100000" title="พื้นหลัง 1" oninput="updateTier(&#39;PLATINUM&#39;,&#39;bg1&#39;,this.value)">
+      <input type="color" value="#200008" title="พื้นหลัง 2" oninput="updateTier(&#39;PLATINUM&#39;,&#39;bg2&#39;,this.value)">
+      <select title="สไตล์การ์ด" onchange="updateTier(&#39;PLATINUM&#39;,&#39;design&#39;,this.value)">
+        <option value="classic">Classic</option><option value="fifa" selected="">FIFA Card</option><option value="neon">Neon</option><option value="holo">Holographic</option>
+      </select>
+      <button class="btnd" onclick="delTier(&#39;PLATINUM&#39;)">🗑</button>
+    </div><div class="tier-row" id="tierRow_DIAMOND">
+      <canvas id="tierPrev_DIAMOND" class="tier-preview-canvas" width="40" height="56"></canvas>
+      <div>
+        <div style="font-weight:700;font-size:13px;margin-bottom:2px">DIAMOND</div>
+        <div style="font-size:10px;color:var(--mu)">OVR ≥ 90 · FIFA Card</div>
+      </div>
+      <input type="number" min="0" max="99" value="90" title="OVR ขั้นต่ำ" onchange="updateTier(&#39;DIAMOND&#39;,&#39;min&#39;,this.value)">
+      <input type="color" value="#8f4500" title="สีหลัก (accent)" oninput="updateTier(&#39;DIAMOND&#39;,&#39;acc&#39;,this.value)">
+      <input type="color" value="#100000" title="พื้นหลัง 1" oninput="updateTier(&#39;DIAMOND&#39;,&#39;bg1&#39;,this.value)">
+      <input type="color" value="#200008" title="พื้นหลัง 2" oninput="updateTier(&#39;DIAMOND&#39;,&#39;bg2&#39;,this.value)">
+      <select title="สไตล์การ์ด" onchange="updateTier(&#39;DIAMOND&#39;,&#39;design&#39;,this.value)">
+        <option value="classic">Classic</option><option value="fifa" selected="">FIFA Card</option><option value="neon">Neon</option><option value="holo">Holographic</option>
+      </select>
+      <button class="btnd" onclick="delTier(&#39;DIAMOND&#39;)">🗑</button>
+    </div><div class="tier-row" id="tierRow_DEMON">
+      <canvas id="tierPrev_DEMON" class="tier-preview-canvas" width="40" height="56"></canvas>
+      <div>
+        <div style="font-weight:700;font-size:13px;margin-bottom:2px">DEMON</div>
+        <div style="font-size:10px;color:var(--mu)">OVR ≥ 96 · Holographic</div>
+      </div>
+      <input type="number" min="0" max="99" value="96" title="OVR ขั้นต่ำ" onchange="updateTier(&#39;DEMON&#39;,&#39;min&#39;,this.value)">
+      <input type="color" value="#8f4500" title="สีหลัก (accent)" oninput="updateTier(&#39;DEMON&#39;,&#39;acc&#39;,this.value)">
+      <input type="color" value="#100000" title="พื้นหลัง 1" oninput="updateTier(&#39;DEMON&#39;,&#39;bg1&#39;,this.value)">
+      <input type="color" value="#200008" title="พื้นหลัง 2" oninput="updateTier(&#39;DEMON&#39;,&#39;bg2&#39;,this.value)">
+      <select title="สไตล์การ์ด" onchange="updateTier(&#39;DEMON&#39;,&#39;design&#39;,this.value)">
+        <option value="classic">Classic</option><option value="fifa">FIFA Card</option><option value="neon">Neon</option><option value="holo" selected="">Holographic</option>
+      </select>
+      <button class="btnd" onclick="delTier(&#39;DEMON&#39;)">🗑</button>
+    </div></div>
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--bd)">
+        <div style="font-size:11px;color:var(--mu);margin-bottom:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase">เพิ่มระดับใหม่</div>
+        <div class="fr" style="margin-bottom:8px">
+          <div class="fg"><label>ชื่อระดับ</label><input id="tnNewName" type="text" placeholder="เช่น Legend"></div>
+          <div class="fg"><label>OVR ขั้นต่ำ</label><input id="tnNewMin" type="number" min="0" max="99" value="98" placeholder="0-99"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-bottom:10px;align-items:end">
+          <div class="fg"><label>สีหลัก (accent)</label><input id="tnNewAcc" type="color" value="#ff2233" style="height:40px;padding:3px;width:100%"></div>
+          <div class="fg"><label>พื้นหลัง 1</label><input id="tnNewBg1" type="color" value="#100000" style="height:40px;padding:3px;width:100%"></div>
+          <div class="fg"><label>พื้นหลัง 2</label><input id="tnNewBg2" type="color" value="#200008" style="height:40px;padding:3px;width:100%"></div>
+          <div class="fg"><label>สไตล์</label>
+            <select id="tnNewDesign">
+              <option value="classic">Classic</option>
+              <option value="fifa">FIFA Card</option>
+              <option value="neon">Neon</option>
+              <option value="holo" selected="">Holographic</option>
+            </select>
+          </div>
+        </div>
+        <button class="btnp" onclick="addTier()">+ เพิ่มระดับ</button>
+        <button class="btns" style="margin-left:8px" onclick="resetTiers()">↺ รีเซ็ตเป็นค่าเริ่มต้น</button>
+      </div>
+    </div>
+
+    <!-- ADD / EDIT PLAYER -->
+    <div class="asec" id="playerFormSec">
+      <h3 id="playerFormTitle">👤 เพิ่มนักเตะ</h3>
+      <div class="edit-mode-banner" id="editBanner">
+        ✏️ โหมดแก้ไข — กำลังแก้ไขข้อมูลนักเตะ
+        <button class="btns" style="margin-left:auto;font-size:11px" onclick="cancelEdit()">ยกเลิก</button>
+      </div>
+      <div class="fr">
+        <div class="fg"><label>ชื่อนักเตะ</label><input id="pname" type="text" placeholder="ชื่อ-นามสกุล"></div>
+        <div class="fg"><label>ตำแหน่ง</label>
+          <select id="ppos" onchange="refreshStats();drawPrev()">
+            <option>ST</option><option>CF</option><option>LW</option><option>RW</option>
+            <option>CAM</option><option>CM</option><option>CDM</option>
+            <option>LB</option><option>RB</option><option>CB</option><option>GK</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg" style="margin-bottom:10px"><label>ทีม</label><select id="pteam"><option value="">ไม่มีทีม</option><option value="1778306556974">MINT TUTOR</option><option value="1778306572598">GREENFENCE</option></select></div>
+      <div class="fg" style="margin-bottom:12px">
+        <label>สถานะนักเตะ (เลือกได้หลายสถานะ)</label>
+        <div id="statusPickWrap" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;min-height:28px"><span class="pstag on" data-name="STANDARD" data-color="#595959" style="color: rgb(89, 89, 89); border-color: rgba(89, 89, 89, 0.267); background: rgba(89, 89, 89, 0.133);" onclick="toggleStatus(this)">STANDARD</span><span class="pstag" data-name="PRIME" data-color="#ffea00" style="color:#ffea00;border-color:#ffea0044;background:transparent" onclick="toggleStatus(this)">PRIME</span></div>
+      </div>
+      <div class="fg" style="margin-bottom:14px">
+        <label>รูปนักเตะ (ไม่บังคับ)</label>
+        <div class="pdrop" onclick="document.getElementById(&#39;pphoto&#39;).click()">📷 คลิกเพื่ออัปโหลดรูป</div>
+        <input type="file" id="pphoto" accept="image/*" style="display:none" onchange="loadPhoto(this)">
+        <div id="prevPhoto" style="margin-top:6px"></div>
+      </div>
+      <div id="statArea"><div class="fg" style="margin-bottom:12px">
+    <label>สถิติ (นักเตะ)</label>
+    <div class="ssr">
+      <span class="lbl">PAC</span>
+      <input type="range" min="1" max="99" value="70" id="s_PAC" oninput="document.getElementById(&#39;v_PAC&#39;).textContent=this.value;drawPrev()">
+      <span class="num" id="v_PAC">70</span>
+      <span class="nm2">Pace</span>
+    </div><div class="ssr">
+      <span class="lbl">SHO</span>
+      <input type="range" min="1" max="99" value="70" id="s_SHO" oninput="document.getElementById(&#39;v_SHO&#39;).textContent=this.value;drawPrev()">
+      <span class="num" id="v_SHO">70</span>
+      <span class="nm2">Shooting</span>
+    </div><div class="ssr">
+      <span class="lbl">PAS</span>
+      <input type="range" min="1" max="99" value="70" id="s_PAS" oninput="document.getElementById(&#39;v_PAS&#39;).textContent=this.value;drawPrev()">
+      <span class="num" id="v_PAS">70</span>
+      <span class="nm2">Passing</span>
+    </div><div class="ssr">
+      <span class="lbl">DRI</span>
+      <input type="range" min="1" max="99" value="70" id="s_DRI" oninput="document.getElementById(&#39;v_DRI&#39;).textContent=this.value;drawPrev()">
+      <span class="num" id="v_DRI">70</span>
+      <span class="nm2">Dribbling</span>
+    </div><div class="ssr">
+      <span class="lbl">DEF</span>
+      <input type="range" min="1" max="99" value="70" id="s_DEF" oninput="document.getElementById(&#39;v_DEF&#39;).textContent=this.value;drawPrev()">
+      <span class="num" id="v_DEF">70</span>
+      <span class="nm2">Defense</span>
+    </div><div class="ssr">
+      <span class="lbl">PHY</span>
+      <input type="range" min="1" max="99" value="70" id="s_PHY" oninput="document.getElementById(&#39;v_PHY&#39;).textContent=this.value;drawPrev()">
+      <span class="num" id="v_PHY">70</span>
+      <span class="nm2">Physicality</span>
+    </div><div class="ssr">
+      <span class="lbl">STA</span>
+      <input type="range" min="1" max="99" value="70" id="s_STA" oninput="document.getElementById(&#39;v_STA&#39;).textContent=this.value;drawPrev()">
+      <span class="num" id="v_STA">70</span>
+      <span class="nm2">Stamina</span>
+    </div><div class="ssr">
+      <span class="lbl">KIC</span>
+      <input type="range" min="1" max="99" value="70" id="s_KIC" oninput="document.getElementById(&#39;v_KIC&#39;).textContent=this.value;drawPrev()">
+      <span class="num" id="v_KIC">70</span>
+      <span class="nm2">Kicking Pwr</span>
+    </div>
+  </div></div>
+      <div class="fg" style="margin-bottom:14px">
+        <label>Playstyles</label>
+        <div id="psPickWrap" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;min-height:28px"><span class="pstag" data-name="POACHER" data-color="#ff0000" style="color:#ff0000;border-color:#ff000044;background:transparent" onclick="togglePs(this)">POACHER</span><span class="pstag" data-name="FOX IN THE BOX" data-color="#ff7300" style="color:#ff7300;border-color:#ff730044;background:transparent" onclick="togglePs(this)">FOX IN THE BOX</span><span class="pstag" data-name="TARET MAN" data-color="#a34900" style="color:#a34900;border-color:#a3490044;background:transparent" onclick="togglePs(this)">TARET MAN</span><span class="pstag" data-name="DEEP LYING" data-color="#6b0000" style="color:#6b0000;border-color:#6b000044;background:transparent" onclick="togglePs(this)">DEEP LYING</span><span class="pstag" data-name="WINGER" data-color="#ff00f7" style="color:#ff00f7;border-color:#ff00f744;background:transparent" onclick="togglePs(this)">WINGER</span><span class="pstag" data-name="ROAMING FLANK" data-color="#ff94fb" style="color:#ff94fb;border-color:#ff94fb44;background:transparent" onclick="togglePs(this)">ROAMING FLANK</span><span class="pstag" data-name="PLAY MAKER" data-color="#00ff2a" style="color:#00ff2a;border-color:#00ff2a44;background:transparent" onclick="togglePs(this)">PLAY MAKER</span><span class="pstag" data-name="HOLE PLAYER" data-color="#00ffaa" style="color:#00ffaa;border-color:#00ffaa44;background:transparent" onclick="togglePs(this)">HOLE PLAYER</span><span class="pstag" data-name="BOX TO BOX" data-color="#00a313" style="color:#00a313;border-color:#00a31344;background:transparent" onclick="togglePs(this)">BOX TO BOX</span><span class="pstag" data-name="ANCHOR MAN" data-color="#00570a" style="color:#00570a;border-color:#00570a44;background:transparent" onclick="togglePs(this)">ANCHOR MAN</span><span class="pstag" data-name="ORCHRESTRATOR" data-color="#009463" style="color:#009463;border-color:#00946344;background:transparent" onclick="togglePs(this)">ORCHRESTRATOR</span><span class="pstag" data-name="ATK FULLBACK" data-color="#740094" style="color:#740094;border-color:#74009444;background:transparent" onclick="togglePs(this)">ATK FULLBACK</span><span class="pstag" data-name="DEF FULLBACK" data-color="#9800c2" style="color:#9800c2;border-color:#9800c244;background:transparent" onclick="togglePs(this)">DEF FULLBACK</span><span class="pstag" data-name="DESTROYER" data-color="#110094" style="color:#110094;border-color:#11009444;background:transparent" onclick="togglePs(this)">DESTROYER</span><span class="pstag" data-name="BUILD UP" data-color="#8170ff" style="color:#8170ff;border-color:#8170ff44;background:transparent" onclick="togglePs(this)">BUILD UP</span><span class="pstag" data-name="EXTRA FRONTMAN" data-color="#1e00ff" style="color:#1e00ff;border-color:#1e00ff44;background:transparent" onclick="togglePs(this)">EXTRA FRONTMAN</span><span class="pstag" data-name="ATK GK" data-color="#fff700" style="color:#fff700;border-color:#fff70044;background:transparent" onclick="togglePs(this)">ATK GK</span><span class="pstag" data-name="DEF GK" data-color="#858000" style="color:#858000;border-color:#85800044;background:transparent" onclick="togglePs(this)">DEF GK</span></div>
+      </div>
+      <div style="display:flex;gap:20px;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap">
+        <div>
+          <div class="ovrb" id="ovrShow">70</div>
+          <div class="tierlbl" id="tierShow">SILVER</div>
+          <div style="font-size:10px;color:var(--mu);text-align:center;margin-top:3px" id="designShow">ดีไซน์: FIFA Card</div>
+        </div>
+        <canvas id="prevCard" width="200" height="290" style="border-radius:12px;flex-shrink:0;width:150px;box-shadow:0 8px 24px rgba(0,0,0,.5)"></canvas>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btnp" id="saveBtn" onclick="savePlayer()">💾 บันทึกนักเตะ</button>
+        <button class="btns" id="cancelBtn" onclick="cancelEdit()" style="display:none">ยกเลิก</button>
+      </div>
+    </div>
+
+    <!-- PLAYER LIST -->
+    <div class="asec">
+      <h3>📋 รายชื่อนักเตะ</h3>
+      <div id="ptblWrap"><p style="color:var(--mu)">ยังไม่มีนักเตะ</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="ov" id="modOv">
+  <div class="mod">
+    <button class="mcls" onclick="closeMod()">✕</button>
+    <div id="modBody"></div>
+  </div>
+</div>
+
+<div class="notif ok" id="notif">✅ เพิ่มระดับ DEMON</div>
+
+<script>
+// ═══════════ CONFIG ═══════════
+const CODE = '4244';
+// TIER_DATA is now stored in db.tiers (admin-managed). This is the built-in fallback only.
+const DEFAULT_TIERS = [
+  {min:0,  name:'Bronze',   acc:'#cd7f32',bg1:'#130800',bg2:'#221200',design:'classic'},
+  {min:60, name:'Silver',   acc:'#d0d0e0',bg1:'#0e0e16',bg2:'#1c1c26',design:'classic'},
+  {min:70, name:'Gold',     acc:'#f0c040',bg1:'#180f00',bg2:'#261a00',design:'fifa'},
+  {min:75, name:'Platinum', acc:'#80e8ff',bg1:'#001520',bg2:'#002030',design:'fifa'},
+  {min:80, name:'Ruby',     acc:'#ff4488',bg1:'#18000e',bg2:'#280018',design:'neon'},
+  {min:83, name:'Sapphire', acc:'#4db8ff',bg1:'#00101e',bg2:'#001830',design:'neon'},
+  {min:86, name:'Emerald',  acc:'#3ddc84',bg1:'#00130c',bg2:'#002018',design:'neon'},
+  {min:89, name:'Amethyst', acc:'#b060ff',bg1:'#0d0018',bg2:'#180028',design:'neon'},
+  {min:92, name:'Diamond',  acc:'#b0f8ff',bg1:'#00050f',bg2:'#000c1e',design:'holo'},
+  {min:95, name:'Obsidian', acc:'#ff2233',bg1:'#000000',bg2:'#080008',design:'holo'},
+];
+const DESIGN_OPTIONS = ['classic','fifa','neon','holo'];
+const DESIGN_LABELS  = {classic:'Classic',fifa:'FIFA Card',neon:'Neon',holo:'Holographic'};
+const FIELD_KEYS=['PAC','SHO','PAS','DRI','DEF','PHY','STA','KIC'];
+const GK_KEYS=['REF','AWR','CAT','REA','STA','KIC'];
+const STAT_NAMES={PAC:'Pace',SHO:'Shooting',PAS:'Passing',DRI:'Dribbling',DEF:'Defense',PHY:'Physicality',STA:'Stamina',KIC:'Kicking Pwr',REF:'Reflexes',AWR:'Awareness',CAT:'Catching',REA:'Reaching'};
+const STAT_COLORS={PAC:'#f0c040',SHO:'#ff6644',PAS:'#44aaff',DRI:'#4dff91',DEF:'#ff88cc',PHY:'#ff9933',STA:'#44ffee',KIC:'#cc88ff',REF:'#f0c040',AWR:'#ff6644',CAT:'#44aaff',REA:'#4dff91',OVR:'#f0c040'};
+
+const DEFAULT_DB={teams:[],players:[],playstyles:[
+  {name:'Finesse Shot',color:'#ff6b6b'},{name:'Power Shot',color:'#ff9944'},
+  {name:'Dribble',color:'#4dff91'},{name:'Tiki-Taka',color:'#44aaff'},
+  {name:'Long Ball',color:'#ffcc44'},{name:'Aerial',color:'#ff88cc'},{name:'Jockey',color:'#9966ff'}
+],statuses:[
+  {name:'ฟอร์มร้อน',color:'#ff6b2b'},
+  {name:'บาดเจ็บ',color:'#ff3355'},
+  {name:'ห้ามลง',color:'#cc2233'},
+  {name:'พร้อมลง',color:'#3ddc84'}
+],tiers:JSON.parse(JSON.stringify(DEFAULT_TIERS))};
+let db=JSON.parse(JSON.stringify(DEFAULT_DB));
+let photoData=null;
+let editingId=null; // null = add mode, id = edit mode
+let rkStat='OVR',rkSortCol='OVR',rkSortDir=-1;
+let FIREBASE_URL='https://YOUR-PROJECT-ID-default-rtdb.firebaseio.com';
+let fbConfigured=FIREBASE_URL.indexOf('YOUR-PROJECT')<0;
+let _poll=null;
+
+// ═══════════ BG PARTICLES ═══════════
+(()=>{
+  const c=document.getElementById('bgp');
+  for(let i=0;i<18;i++){
+    const s=document.createElement('span');
+    const sz=Math.random()*3+1;
+    s.style.cssText=`width:${sz}px;height:${sz}px;left:${Math.random()*100}%;background:#f0c040;animation-duration:${8+Math.random()*14}s;animation-delay:${Math.random()*10}s;`;
+    c.appendChild(s);
+  }
+})();
+
+// ═══════════ FIREBASE ═══════════
+function save(){
+  if(fbConfigured) fbSet(db);
+  else localStorage.setItem('ca5',JSON.stringify(db));
+}
+async function fbGet(){
+  try{const r=await fetch(FIREBASE_URL+'/fc.json');return await r.json()||DEFAULT_DB;}
+  catch{return null;}
+}
+async function fbSet(d){
+  try{await fetch(FIREBASE_URL+'/fc.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)});}
+  catch(e){console.warn(e);}
+}
+async function syncFromFirebase(){
+  if(!fbConfigured){
+    db=JSON.parse(localStorage.getItem('ca5')||JSON.stringify(DEFAULT_DB));
+    showSync('local'); refreshActivePage(); return;
+  }
+  showSync('syncing');
+  const d=await fbGet();
+  if(d){db={...DEFAULT_DB,...d};showSync('ok');}
+  else showSync('err');
+  refreshActivePage();
+}
+function refreshActivePage(){
+  const pg=document.querySelector('.pg.on');
+  if(!pg) return;
+  if(pg.id==='pg-gal'){
+    activeStatusFilter='';
+    const sel=document.getElementById('fstatus');
+    if(sel) sel.value='';
+    renderGallery();
+  }
+  if(pg.id==='pg-rank') renderRanking();
+  if(pg.id==='pg-adm'&&document.getElementById('apan').style.display!=='none') renderPlayerTable();
+}
+function showSync(s){
+  const el=document.getElementById('syncStatus');
+  if(!el) return;
+  const m={ok:'🟢 ซิงค์แล้ว',syncing:'🔄 กำลังโหลด...',err:'🔴 ออฟไลน์',local:'💾 Local'};
+  el.textContent=m[s]||s;
+}
+function startPolling(){
+  if(!fbConfigured) return;
+  if(_poll) clearInterval(_poll);
+  _poll=setInterval(syncFromFirebase,10000);
+}
+function saveFbUrl(){
+  const url=document.getElementById('fbUrlInput').value.trim();
+  if(!url||(url.indexOf('firebaseio.com')<0&&url.indexOf('firebasedatabase.app')<0)) return notif('URL ไม่ถูกต้อง','err');
+  localStorage.setItem('ca5_fburl',url);
+  FIREBASE_URL=url; fbConfigured=true;
+  notif('✅ บันทึก URL แล้ว กำลังซิงค์...');
+  updateFbBanner(); syncFromFirebase().then(()=>startPolling());
+}
+function updateFbBanner(){
+  const saved=localStorage.getItem('ca5_fburl')||'';
+  const inp=document.getElementById('fbUrlInput');
+  if(inp&&saved) inp.value=saved;
+  const row=document.getElementById('fbStatusRow');
+  if(row) row.innerHTML=fbConfigured
+    ?'<span style="color:#3ddc84">✅ เชื่อมต่อ Firebase แล้ว — ทุกคนเห็นข้อมูลเดียวกัน</span>'
+    :'<span style="color:#f0c040">⚠️ ยังไม่ได้ใส่ URL — เก็บในเครื่องนี้เท่านั้น</span>';
+}
+
+// ═══════════ NAV ═══════════
+function nav(pg,el){
+  document.querySelectorAll('.pg').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.getElementById('pg-'+pg).classList.add('on');
+  el.classList.add('on');
+  if(pg==='gal') renderGallery();
+  if(pg==='rank') renderRanking();
+}
+
+// ═══════════ LOGIN ═══════════
+function doLogin(){
+  if(document.getElementById('apwd').value===CODE){
+    document.getElementById('alog').style.display='none';
+    document.getElementById('apan').style.display='block';
+    initAdmin();
+  } else {
+    document.getElementById('lerr').textContent='❌ รหัสไม่ถูกต้อง';
+    document.getElementById('apwd').value='';
+  }
+}
+function initAdmin(){
+  const saved=localStorage.getItem('ca5_fburl');
+  if(saved&&!fbConfigured){FIREBASE_URL=saved;fbConfigured=true;}
+  updateFbBanner();
+  renderTeams(); renderPsAdmin(); renderStatusAdmin(); renderTierAdmin();
+  refreshStats(); updatePsPick(); updateStatusPick(); updateTeamSelects(); renderPlayerTable();
+  document.getElementById('pname').addEventListener('input',drawPrev);
+  setInterval(drawPrev,500);
+}
+
+// ═══════════ TEAMS ═══════════
+function addTeam(){
+  const n=document.getElementById('tname').value.trim(),c=document.getElementById('tcolor').value;
+  if(!n) return notif('กรุณาใส่ชื่อทีม','err');
+  if(db.teams.find(t=>t.name===n)) return notif('ทีมนี้มีแล้ว','err');
+  db.teams.push({id:Date.now(),name:n,color:c});
+  save(); renderTeams(); updateTeamSelects();
+  document.getElementById('tname').value=''; notif('✅ เพิ่มทีม '+n);
+}
+function delTeam(id){db.teams=db.teams.filter(t=>t.id!==id);save();renderTeams();updateTeamSelects();}
+function renderTeams(){
+  const el=document.getElementById('tlist');
+  if(!db.teams.length){el.innerHTML='<p style="color:var(--mu);font-size:13px">ยังไม่มีทีม</p>';return;}
+  el.innerHTML=db.teams.map(t=>`<div class="ti"><span><span class="dot" style="background:${t.color}"></span>${t.name}</span><button class="btnd" onclick="delTeam(${t.id})">🗑</button></div>`).join('');
+}
+function updateTeamSelects(){
+  const opts=db.teams.map(t=>`<option value="${t.id}">${t.name}</option>`).join('');
+  const pt=document.getElementById('pteam'),ft=document.getElementById('fteam');
+  if(pt) pt.innerHTML='<option value="">ไม่มีทีม</option>'+opts;
+  if(ft) ft.innerHTML='<option value="">ทุกทีม</option>'+opts;
+}
+
+// ═══════════ PLAYSTYLES ═══════════
+function addPs(){
+  const name=document.getElementById('psNewName').value.trim(),color=document.getElementById('psNewColor').value;
+  if(!name) return notif('กรุณาใส่ชื่อ playstyle','err');
+  if(db.playstyles.find(p=>p.name===name)) return notif('มี playstyle นี้แล้ว','err');
+  db.playstyles.push({name,color}); save(); renderPsAdmin(); updatePsPick();
+  document.getElementById('psNewName').value=''; notif('✅ เพิ่ม '+name);
+}
+function delPs(name){db.playstyles=db.playstyles.filter(p=>p.name!==name);save();renderPsAdmin();updatePsPick();}
+function renderPsAdmin(){
+  const el=document.getElementById('psAdminList');
+  if(!db.playstyles.length){el.innerHTML='<p style="color:var(--mu);font-size:12px">ยังไม่มี playstyle</p>';return;}
+  el.innerHTML=db.playstyles.map(p=>`<div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:${p.color};display:inline-block;flex-shrink:0"></span>
+    <span style="color:${p.color};font-weight:700;flex:1">${p.name}</span>
+    <button class="btnd" onclick="delPs('${p.name.replace(/'/g,"\\'")}')">✕</button>
+  </div>`).join('');
+}
+function updatePsPick(selectedNames){
+  const w=document.getElementById('psPickWrap'); if(!w) return;
+  const checked=selectedNames?new Set(selectedNames):new Set([...w.querySelectorAll('.pstag.on')].map(e=>e.dataset.name));
+  if(!db.playstyles.length){w.innerHTML='<span style="color:var(--mu);font-size:12px">เพิ่ม playstyle ก่อน</span>';return;}
+  w.innerHTML=db.playstyles.map(p=>`<span class="pstag${checked.has(p.name)?' on':''}" data-name="${p.name}" data-color="${p.color}"
+    style="color:${p.color};border-color:${p.color}44;background:${checked.has(p.name)?p.color+'22':'transparent'}"
+    onclick="togglePs(this)">${p.name}</span>`).join('');
+}
+function togglePs(el){el.classList.toggle('on');el.style.background=el.classList.contains('on')?el.dataset.color+'22':'transparent';}
+function getPickedPs(){return[...document.querySelectorAll('#psPickWrap .pstag.on')].map(e=>({name:e.dataset.name,color:e.dataset.color}));}
+
+// ═══════════ STATUS ADMIN ═══════════
+function addStatus(){
+  const name=document.getElementById('stNewName').value.trim();
+  const color=document.getElementById('stNewColor').value;
+  if(!name) return notif('กรุณาใส่ชื่อสถานะ','err');
+  if(!db.statuses) db.statuses=[];
+  if(db.statuses.find(s=>s.name===name)) return notif('มีสถานะนี้แล้ว','err');
+  db.statuses.push({name,color}); save(); renderStatusAdmin(); updateStatusPick();
+  document.getElementById('stNewName').value=''; notif('✅ เพิ่มสถานะ '+name);
+}
+function delStatus(name){
+  db.statuses=(db.statuses||[]).filter(s=>s.name!==name);
+  save(); renderStatusAdmin(); updateStatusPick();
+}
+function renderStatusAdmin(){
+  const el=document.getElementById('statusAdminList'); if(!el) return;
+  const list=db.statuses||[];
+  if(!list.length){el.innerHTML='<p style="color:var(--mu);font-size:12px">ยังไม่มีสถานะ</p>';return;}
+  el.innerHTML=list.map(s=>`<div class="psitem">
+    <span style="width:10px;height:10px;border-radius:50%;background:${s.color};display:inline-block;flex-shrink:0"></span>
+    <span style="color:${s.color};font-weight:700;flex:1">${s.name}</span>
+    <button class="btnd" onclick="delStatus('${s.name.replace(/'/g,"\\'")}')">✕</button>
+  </div>`).join('');
+}
+function updateStatusPick(selectedNames){
+  const w=document.getElementById('statusPickWrap'); if(!w) return;
+  const list=db.statuses||[];
+  const checked=selectedNames?new Set(selectedNames):new Set([...w.querySelectorAll('.pstag.on')].map(e=>e.dataset.name));
+  if(!list.length){w.innerHTML='<span style="color:var(--mu);font-size:12px">เพิ่มสถานะในส่วนด้านบนก่อน</span>';return;}
+  w.innerHTML=list.map(s=>`<span class="pstag${checked.has(s.name)?' on':''}" data-name="${s.name}" data-color="${s.color}"
+    style="color:${s.color};border-color:${s.color}44;background:${checked.has(s.name)?s.color+'22':'transparent'}"
+    onclick="toggleStatus(this)">${s.name}</span>`).join('');
+}
+function toggleStatus(el){el.classList.toggle('on');el.style.background=el.classList.contains('on')?el.dataset.color+'22':'transparent';}
+function getPickedStatuses(){return[...document.querySelectorAll('#statusPickWrap .pstag.on')].map(e=>({name:e.dataset.name,color:e.dataset.color}));}
+
+// ═══════════ TIER / CARD DESIGN ADMIN ═══════════
+function addTier(){
+  const name=document.getElementById('tnNewName').value.trim();
+  const min=parseInt(document.getElementById('tnNewMin').value)||0;
+  const acc=document.getElementById('tnNewAcc').value;
+  const bg1=document.getElementById('tnNewBg1').value;
+  const bg2=document.getElementById('tnNewBg2').value;
+  const design=document.getElementById('tnNewDesign').value;
+  if(!name) return notif('กรุณาใส่ชื่อระดับ','err');
+  if(!db.tiers) db.tiers=JSON.parse(JSON.stringify(DEFAULT_TIERS));
+  if(db.tiers.find(t=>t.name===name)) return notif('มีระดับนี้แล้ว','err');
+  db.tiers.push({min,name,acc,bg1,bg2,design});
+  db.tiers.sort((a,b)=>a.min-b.min);
+  save(); renderTierAdmin(); renderGallery(); drawPrev();
+  document.getElementById('tnNewName').value='';
+  notif('✅ เพิ่มระดับ '+name);
+}
+
+function updateTier(name, field, val){
+  if(!db.tiers) return;
+  const t=db.tiers.find(t=>t.name===name); if(!t) return;
+  t[field]= field==='min'?parseInt(val)||0:val;
+  if(field==='min') db.tiers.sort((a,b)=>a.min-b.min);
+  save(); renderGallery(); drawPrev();
+  // re-render mini preview for this row
+  const c=document.getElementById('tierPrev_'+name.replace(/[^a-zA-Z0-9]/g,'_'));
+  if(c) drawTierPreview(c,t);
+}
+
+function delTier(name){
+  if(!db.tiers||db.tiers.length<=1) return notif('ต้องมีอย่างน้อย 1 ระดับ','err');
+  db.tiers=db.tiers.filter(t=>t.name!==name);
+  save(); renderTierAdmin(); renderGallery(); drawPrev();
+  notif('ลบระดับ '+name+' แล้ว');
+}
+
+function resetTiers(){
+  if(!confirm('รีเซ็ตดีไซน์การ์ดทั้งหมดกลับค่าเริ่มต้น?')) return;
+  db.tiers=JSON.parse(JSON.stringify(DEFAULT_TIERS));
+  save(); renderTierAdmin(); renderGallery(); drawPrev();
+  notif('✅ รีเซ็ตแล้ว');
+}
+
+function renderTierAdmin(){
+  const el=document.getElementById('tierAdminList'); if(!el) return;
+  if(!db.tiers||!db.tiers.length){db.tiers=JSON.parse(JSON.stringify(DEFAULT_TIERS));}
+  const tiers=[...db.tiers].sort((a,b)=>a.min-b.min);
+  el.innerHTML=tiers.map(t=>{
+    const safeId=t.name.replace(/[^a-zA-Z0-9]/g,'_');
+    return `<div class="tier-row" id="tierRow_${safeId}">
+      <canvas id="tierPrev_${safeId}" class="tier-preview-canvas" width="40" height="56"></canvas>
+      <div>
+        <div style="font-weight:700;font-size:13px;margin-bottom:2px">${t.name}</div>
+        <div style="font-size:10px;color:var(--mu)">OVR ≥ ${t.min} · ${DESIGN_LABELS[t.design]||t.design}</div>
+      </div>
+      <input type="number" min="0" max="99" value="${t.min}" title="OVR ขั้นต่ำ"
+        onchange="updateTier('${t.name}','min',this.value)">
+      <input type="color" value="${t.acc}" title="สีหลัก (accent)"
+        oninput="updateTier('${t.name}','acc',this.value)">
+      <input type="color" value="${t.bg1}" title="พื้นหลัง 1"
+        oninput="updateTier('${t.name}','bg1',this.value)">
+      <input type="color" value="${t.bg2}" title="พื้นหลัง 2"
+        oninput="updateTier('${t.name}','bg2',this.value)">
+      <select title="สไตล์การ์ด" onchange="updateTier('${t.name}','design',this.value)">
+        ${DESIGN_OPTIONS.map(d=>`<option value="${d}"${t.design===d?' selected':''}>${DESIGN_LABELS[d]}</option>`).join('')}
+      </select>
+      <button class="btnd" onclick="delTier('${t.name.replace(/'/g,"\\'")}')">🗑</button>
+    </div>`;
+  }).join('');
+  // draw mini previews
+  tiers.forEach(t=>{
+    const safeId=t.name.replace(/[^a-zA-Z0-9]/g,'_');
+    const c=document.getElementById('tierPrev_'+safeId);
+    if(c) drawTierPreview(c,t);
+  });
+}
+
+function drawTierPreview(canvas, tier){
+  const ctx=canvas.getContext('2d'),W=40,H=56,sc=W/200;
+  ctx.clearRect(0,0,W,H);
+  const g=ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,tier.bg1); g.addColorStop(1,tier.bg2);
+  ctx.fillStyle=g;
+  ctx.beginPath();ctx.roundRect(0,0,W,H,4);ctx.fill();
+  if(tier.design==='neon'||tier.design==='holo'){
+    ctx.shadowBlur=4;ctx.shadowColor=tier.acc;
+  }
+  ctx.strokeStyle=tier.acc;ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.roundRect(1,1,W-2,H-2,3.5);ctx.stroke();
+  ctx.shadowBlur=0;
+  ctx.font=`bold 13px 'Bebas Neue',sans-serif`;
+  ctx.fillStyle=tier.acc;ctx.textAlign='center';
+  ctx.fillText('OVR',W/2,16);
+  ctx.font=`bold 18px 'Bebas Neue',sans-serif`;
+  ctx.fillStyle='#fff';ctx.fillText(tier.min,W/2,34);
+  ctx.font=`bold 8px 'Bebas Neue',sans-serif`;
+  ctx.fillStyle=tier.acc+'cc';
+  ctx.fillText(tier.name.substring(0,8).toUpperCase(),W/2,48);
+}
+
+// ═══════════ STATS ═══════════
+function refreshStats(vals){
+  const pos=document.getElementById('ppos').value,keys=pos==='GK'?GK_KEYS:FIELD_KEYS;
+  document.getElementById('statArea').innerHTML=`<div class="fg" style="margin-bottom:12px">
+    <label>สถิติ ${pos==='GK'?'(ผู้รักษาประตู)':'(นักเตะ)'}</label>
+    ${keys.map(k=>{const v=(vals&&vals[k])||70;return`<div class="ssr">
+      <span class="lbl">${k}</span>
+      <input type="range" min="1" max="99" value="${v}" id="s_${k}" oninput="document.getElementById('v_${k}').textContent=this.value;drawPrev()">
+      <span class="num" id="v_${k}">${v}</span>
+      <span class="nm2">${STAT_NAMES[k]||''}</span>
+    </div>`;}).join('')}
+  </div>`;
+}
+function getStats(){
+  const pos=document.getElementById('ppos').value,keys=pos==='GK'?GK_KEYS:FIELD_KEYS;
+  const o={};keys.forEach(k=>{const e=document.getElementById('s_'+k);o[k]=e?parseInt(e.value):70;});return o;
+}
+function calcOvr(){const v=Object.values(getStats());return v.length?Math.round(v.reduce((a,b)=>a+b,0)/v.length):50;}
+function getTier(ovr){
+  const tiers=(db.tiers&&db.tiers.length)?db.tiers:DEFAULT_TIERS;
+  const sorted=[...tiers].sort((a,b)=>a.min-b.min);
+  let t=sorted[0];
+  for(const x of sorted){if(ovr>=x.min)t=x;}
+  return t;
+}
+
+// ═══════════ PHOTO ═══════════
+function loadPhoto(input){
+  const f=input.files[0];if(!f) return;
+  const r=new FileReader();
+  r.onload=e=>{photoData=e.target.result;document.getElementById('prevPhoto').innerHTML=`<img src="${photoData}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;border:2px solid var(--bd)">`;drawPrev();};
+  r.readAsDataURL(f);
+}
+
+// ═══════════ SAVE / EDIT PLAYER ═══════════
+function savePlayer(){
+  const name=document.getElementById('pname').value.trim();
+  if(!name) return notif('กรุณาใส่ชื่อนักเตะ','err');
+  const pos=document.getElementById('ppos').value,teamId=document.getElementById('pteam').value;
+  const stats=getStats(),ovr=calcOvr(),tier=getTier(ovr),playstyles=getPickedPs(),statuses=getPickedStatuses();
+
+  if(editingId){
+    const idx=db.players.findIndex(p=>p.id===editingId);
+    if(idx>=0){
+      db.players[idx]={...db.players[idx],name,pos,teamId,stats,ovr,tier:tier.name,playstyles,statuses,photo:photoData!==null?photoData:db.players[idx].photo};
+    }
+    save(); renderPlayerTable(); renderGallery();
+    notif('✅ แก้ไข '+name+' เรียบร้อย');
+    cancelEdit();
+  } else {
+    db.players.push({id:Date.now(),name,pos,teamId,stats,ovr,tier:tier.name,playstyles,statuses,photo:photoData||null});
+    save(); renderPlayerTable(); renderGallery();
+    notif('✅ บันทึก '+name);
+    resetForm();
+  }
+}
+
+function editPlayer(id){
+  const p=db.players.find(x=>x.id===id); if(!p) return;
+  editingId=id;
+  document.getElementById('playerFormSec').scrollIntoView({behavior:'smooth',block:'start'});
+  document.getElementById('pname').value=p.name;
+  document.getElementById('ppos').value=p.pos;
+  updateTeamSelects();
+  document.getElementById('pteam').value=p.teamId||'';
+  refreshStats(p.stats);
+  if(p.photo){
+    photoData=p.photo;
+    document.getElementById('prevPhoto').innerHTML=`<img src="${p.photo}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;border:2px solid var(--bd)">`;
+  } else { photoData=null; document.getElementById('prevPhoto').innerHTML=''; }
+  const psNames=(p.playstyles||[]).map(x=>typeof x==='object'?x.name:x);
+  updatePsPick(psNames);
+  const stNames=(p.statuses||[]).map(x=>typeof x==='object'?x.name:x);
+  updateStatusPick(stNames);
+  document.getElementById('playerFormTitle').textContent='✏️ แก้ไขนักเตะ';
+  document.getElementById('editBanner').classList.add('on');
+  document.getElementById('saveBtn').textContent='💾 บันทึกการแก้ไข';
+  document.getElementById('cancelBtn').style.display='';
+  drawPrev();
+}
+
+function cancelEdit(){
+  editingId=null;
+  document.getElementById('playerFormTitle').textContent='👤 เพิ่มนักเตะ';
+  document.getElementById('editBanner').classList.remove('on');
+  document.getElementById('saveBtn').textContent='💾 บันทึกนักเตะ';
+  document.getElementById('cancelBtn').style.display='none';
+  resetForm();
+}
+function resetForm(){
+  document.getElementById('pname').value='';
+  photoData=null; document.getElementById('prevPhoto').innerHTML='';
+  refreshStats();
+  document.querySelectorAll('#psPickWrap .pstag').forEach(e=>{e.classList.remove('on');e.style.background='transparent';});
+  document.querySelectorAll('#statusPickWrap .pstag').forEach(e=>{e.classList.remove('on');e.style.background='transparent';});
+}
+
+// ═══════════ PLAYER TABLE ═══════════
+function renderPlayerTable(){
+  const w=document.getElementById('ptblWrap');
+  if(!db.players.length){w.innerHTML='<p style="color:var(--mu)">ยังไม่มีนักเตะ</p>';return;}
+  w.innerHTML=`<table class="ptbl"><thead><tr><th>ชื่อ</th><th>ตำแหน่ง</th><th>OVR</th><th>ระดับ</th><th>สถานะ</th><th>ทีม</th><th></th></tr></thead><tbody>
+  ${db.players.map(p=>{
+    const tm=db.teams.find(t=>t.id==p.teamId);
+    const statuses=(p.statuses||[]);
+    const statusHtml=statuses.map(s=>`<span style="display:inline-block;padding:1px 7px;border-radius:10px;font-size:10px;font-weight:700;background:${s.color}22;color:${s.color};border:1px solid ${s.color}55;margin-right:3px">${s.name}</span>`).join('');
+    return `<tr>
+      <td>${p.name}</td><td>${p.pos}</td>
+      <td style="font-weight:700;color:var(--ac)">${p.ovr}</td>
+      <td>${p.tier}</td>
+      <td>${statusHtml||'<span style="color:var(--mu);font-size:11px">—</span>'}</td>
+      <td>${tm?`<span class="dot" style="background:${tm.color}"></span>${tm.name}`:'-'}</td>
+      <td style="display:flex;gap:5px">
+        <button class="btne" onclick="editPlayer(${p.id})">✏️ แก้ไข</button>
+        <button class="btnd" onclick="delPlayer(${p.id})">🗑</button>
+      </td>
+    </tr>`;
+  }).join('')}</tbody></table>`;
+}
+function delPlayer(id){
+  if(!confirm('ลบนักเตะนี้?')) return;
+  if(editingId===id) cancelEdit();
+  db.players=db.players.filter(p=>p.id!==id);save();renderPlayerTable();renderGallery();notif('ลบแล้ว');
+}
+
+// ═══════════ STATUS FILTER ═══════════
+let activeStatusFilter = '';
+
+function updateStatusSelect(){
+  const sel = document.getElementById('fstatus');
+  if(!sel) return;
+  const list = db.statuses||[];
+  sel.innerHTML = '<option value="">ทุกสถานะ</option>' +
+    list.map(s=>`<option value="${s.name}"${activeStatusFilter===s.name?' selected':''}>${s.name}</option>`).join('');
+}
+
+function setStatusFromSelect(val){
+  activeStatusFilter = val;
+  renderGallery();
+}
+
+function toggleStatusFilter(name){
+  activeStatusFilter = activeStatusFilter===name ? '' : name;
+  updateStatusSelect();
+  renderGallery();
+}
+
+// ═══════════ GALLERY ═══════════
+function renderGallery(){
+  const grid=document.getElementById('grid');
+  const s=(document.getElementById('fsearch')||{value:''}).value.toLowerCase();
+  const fp=(document.getElementById('fpos')||{value:''}).value;
+  const ft=(document.getElementById('fteam')||{value:''}).value;
+  const fs=(document.getElementById('fsort')||{value:'ovr'}).value;
+  updateTeamSelects();
+  updateStatusSelect();
+  let pl=[...db.players];
+  if(s) pl=pl.filter(p=>p.name.toLowerCase().includes(s));
+  if(fp) pl=pl.filter(p=>p.pos===fp);
+  if(ft) pl=pl.filter(p=>String(p.teamId)===ft);
+  if(activeStatusFilter) pl=pl.filter(p=>(p.statuses||[]).some(x=>(typeof x==='object'?x.name:x)===activeStatusFilter));
+  pl.sort(fs==='ovr'?(a,b)=>b.ovr-a.ovr:(a,b)=>a.name.localeCompare(b.name,'th'));
+  if(!pl.length){
+    const msg = activeStatusFilter
+      ? `ไม่มีนักเตะที่มีสถานะ "${activeStatusFilter}"<br><span style="font-size:13px;cursor:pointer;color:var(--ac)" onclick="document.getElementById('fstatus').value='';setStatusFromSelect('')">← ดูทั้งหมด</span>`
+      : 'ยังไม่มีนักเตะ<br><span style="font-size:13px">แอดมินสามารถเพิ่มนักเตะได้</span>';
+    grid.innerHTML=`<div class="empty"><span class="empty-icon">⚽</span>${msg}</div>`;
+    return;
+  }
+  grid.innerHTML=pl.map((p,i)=>{
+    const statusBadges=(p.statuses||[]).map(s=>`<span style="display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;background:${s.color}22;color:${s.color};border:1px solid ${s.color}55">${s.name}</span>`).join('');
+    return `
+    <div class="ct-wrap" style="animation:pgIn .35s ease ${i*0.04}s both">
+      <div class="ct" id="ct_${p.id}" onclick="handleCardClick(event,${p.id})">
+        <div class="ct-inner">
+          <div class="ct-front"><canvas id="cf_${p.id}" width="200" height="290"></canvas></div>
+          <div class="ct-back"><canvas id="cb_${p.id}" width="200" height="290"></canvas></div>
+        </div>
+      </div>
+      ${statusBadges?`<div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;min-height:20px">${statusBadges}</div>`:'<div style="min-height:20px"></div>'}
+      <div class="ct-actions">
+        <button class="ca-btn on" id="btnF_${p.id}" onclick="event.stopPropagation();showFront(${p.id},this)">🖼 รูป</button>
+        <button class="ca-btn" onclick="event.stopPropagation();showBack(${p.id},this)">📊 ชาร์ต</button>
+        <button class="ca-dl" onclick="event.stopPropagation();dlCard(${p.id})" title="ดาวน์โหลด">⬇</button>
+      </div>
+    </div>`}).join('');
+  pl.forEach(p=>{
+    const cf=document.getElementById('cf_'+p.id),cb=document.getElementById('cb_'+p.id);
+    if(cf) drawCard(cf,p,200,290);
+    if(cb) drawSpiderCard(cb,p,200,290);
+  });
+}
+
+// clicking card itself → open detail (not flip)
+function handleCardClick(e,id){
+  // only open if not clicking a button inside
+  if(e.target.closest('.ca-btn,.ca-dl')) return;
+  openCard(id);
+}
+function showFront(id,btn){
+  document.getElementById('ct_'+id).classList.remove('flipped');
+  btn.parentElement.querySelectorAll('.ca-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+}
+function showBack(id,btn){
+  const el=document.getElementById('ct_'+id);
+  el.classList.add('flipped');
+  const cb=document.getElementById('cb_'+id),player=db.players.find(p=>p.id===id);
+  if(cb&&player) animateSpiderCard(cb,player,200,290);
+  btn.parentElement.querySelectorAll('.ca-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+// ═══════════ RANKING ═══════════
+function renderRanking(){
+  buildRkTabs();
+  if(!db.players.length){
+    document.getElementById('rkBarList').innerHTML='<p style="color:var(--mu)">ยังไม่มีนักเตะ</p>';
+    document.getElementById('rkTbody').innerHTML='<tr><td colspan="20" style="padding:20px;color:var(--mu)">ยังไม่มีนักเตะ</td></tr>';
+    return;
+  }
+  renderRkBars(); renderRkTable();
+}
+function buildRkTabs(){
+  const keys=db.players.length?['OVR',...Object.keys(db.players[0].stats||{})]:['OVR'];
+  document.getElementById('rkStatTabs').innerHTML=keys.map(k=>`<button class="rk-st${k===rkStat?' on':''}" onclick="setRkStat('${k}')">${k}</button>`).join('');
+}
+function setRkStat(stat){
+  rkStat=stat;rkSortCol=stat;rkSortDir=-1;
+  document.querySelectorAll('.rk-st').forEach(b=>{b.classList.remove('on');if(b.textContent.trim()===stat)b.classList.add('on');});
+  document.getElementById('rkBarTitle').textContent='RANKING — '+(stat==='OVR'?'OVERALL':stat+(STAT_NAMES[stat]?' ('+STAT_NAMES[stat]+')':''));
+  document.getElementById('rkTblLabel').textContent=stat==='OVR'?'OVERALL':stat;
+  renderRkBars(); renderRkTable();
+}
+function getStatVal(p,key){return key==='OVR'?p.ovr:(p.stats&&p.stats[key]||0);}
+function renderRkBars(){
+  const list=document.getElementById('rkBarList');
+  let sorted=[...db.players].sort((a,b)=>getStatVal(b,rkStat)-getStatVal(a,rkStat));
+  list.innerHTML=sorted.map((p,i)=>{
+    const val=getStatVal(p,rkStat),tier=getTier(p.ovr);
+    const barCol=val>=80?'#4dff91':val>=60?STAT_COLORS[rkStat]||tier.acc:'#ff6b6b';
+    const pct=(val/99*100).toFixed(1);
+    return `<div class="rk-bar-row" onclick="openCard(${p.id})">
+      <div class="rk-bar-avatar">${p.photo?`<img src="${p.photo}">`:'<span>'+p.name[0].toUpperCase()+'</span>'}</div>
+      <div class="rk-bar-name">${p.name.toUpperCase()}</div>
+      <div class="rk-bar-track"><div class="rk-bar-fill" id="rkbf_${i}" style="background:linear-gradient(90deg,${barCol}bb,${barCol})" data-w="${pct}"><span class="rk-bar-fill-val">${val}</span></div></div>
+    </div>`;
+  }).join('');
+  requestAnimationFrame(()=>{sorted.forEach((_,i)=>{setTimeout(()=>{const e=document.getElementById('rkbf_'+i);if(e)e.style.width=e.dataset.w+'%';},i*45);});});
+}
+function renderRkTable(){
+  if(!db.players.length) return;
+  const allStatKeys=Object.keys(db.players[0].stats||{});
+  const allKeys=['OVR',...allStatKeys];
+  document.getElementById('rkThead').innerHTML=`<tr>
+    <th>#</th>
+    <th onclick="rkSort('NAME')" class="${rkSortCol==='NAME'?'son':''}">ผู้เล่น${rkSortCol==='NAME'?'<span> '+(rkSortDir<0?'↓':'↑')+'</span>':''}</th>
+    <th onclick="rkSort('POS')" class="${rkSortCol==='POS'?'son':''}">POS</th>
+    ${allKeys.map(k=>`<th onclick="rkSort('${k}')" class="${rkSortCol===k?'son':''}" style="${rkSortCol===k?'color:'+(STAT_COLORS[k]||'var(--ac)'):''}">
+      ${k}${rkSortCol===k?'<span> '+(rkSortDir<0?'↓':'↑')+'</span>':''}
+    </th>`).join('')}
+  </tr>`;
+  let sorted=[...db.players];
+  if(rkSortCol==='NAME') sorted.sort((a,b)=>rkSortDir*a.name.localeCompare(b.name,'th'));
+  else if(rkSortCol==='POS') sorted.sort((a,b)=>rkSortDir*a.pos.localeCompare(b.pos));
+  else sorted.sort((a,b)=>rkSortDir*(getStatVal(a,rkSortCol)-getStatVal(b,rkSortCol)));
+  const byOvr=[...db.players].sort((a,b)=>b.ovr-a.ovr);
+  document.getElementById('rkTbody').innerHTML=sorted.map((p,i)=>{
+    const rk=byOvr.findIndex(x=>x.id===p.id)+1;
+    const rnCls=rk===1?'g':rk===2?'s':rk===3?'b':'';
+    const tier=getTier(p.ovr),tm=db.teams.find(t=>t.id==p.teamId);
+    const ov=p.ovr,ovrCol=ov>=92?'#b0f8ff':ov>=89?'#b060ff':ov>=86?'#3ddc84':ov>=83?'#4db8ff':ov>=80?'#ff4488':ov>=75?'#80e8ff':ov>=70?'#f0c040':ov>=60?'#d0d0e0':'#cd7f32';
+    const statCells=Object.keys(p.stats||{}).map(k=>{
+      const v=p.stats[k]||0,col=v>=80?'#4dff91':v>=60?STAT_COLORS[k]||'#f0c040':'#ff6b6b';
+      return `<td style="${rkSortCol===k?'background:rgba(255,255,255,.04)':''}"><div class="mini-bar"><div class="mini-bar-track"><div class="mini-bar-fill" style="width:${v/99*100}%;background:${col}"></div></div><span class="mini-bar-val" style="color:${col}">${v}</span></div></td>`;
+    }).join('');
+    return `<tr onclick="openCard(${p.id})">
+      <td><span class="rk-rank-no ${rnCls}">${i+1}</span></td>
+      <td><div class="rk-player-cell"><div class="rk-av">${p.photo?`<img src="${p.photo}">`:'<span>'+p.name[0]+'</span>'}</div><div><div class="rk-pname">${p.name.toUpperCase()}</div>${tm?`<div style="font-size:10px;color:${tm.color}">${tm.name}</div>`:''}</div></div></td>
+      <td><span class="rk-pos-badge">${p.pos}</span></td>
+      <td style="${rkSortCol==='OVR'?'background:rgba(255,255,255,.04)':''}"><span class="ovr-chip" style="color:${ovrCol}">${ov}</span></td>
+      ${statCells}
+    </tr>`;
+  }).join('');
+}
+function rkSort(col){if(rkSortCol===col)rkSortDir*=-1;else{rkSortCol=col;rkSortDir=-1;}renderRkTable();}
+
+// ═══════════ CARD DRAWING ENGINE ═══════════
+function drawCard(canvas,player,W,H){
+  const tier=getTier(player.ovr);
+  if(tier.design==='classic') drawClassic(canvas,player,W,H,tier);
+  else if(tier.design==='fifa') drawFifa(canvas,player,W,H,tier);
+  else if(tier.design==='neon') drawNeon(canvas,player,W,H,tier);
+  else drawHolo(canvas,player,W,H,tier);
+}
+function rr(ctx,x,y,w,h,r){
+  ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();
+}
+function placePhoto(ctx,player,x,y,w,h,r,canvas){
+  ctx.save();rr(ctx,x,y,w,h,r);ctx.clip();
+  if(player.photo){
+    const img=new Image();img.src=player.photo;
+    if(img.complete&&img.naturalWidth>0){
+      const ratio=Math.max(w/img.width,h/img.height);
+      const dw=img.width*ratio,dh=img.height*ratio;
+      ctx.drawImage(img,x+(w-dw)/2,y+(h-dh)/2,dw,dh);
+    } else {img.onload=()=>{if(canvas)drawCard(canvas,player,canvas.width,canvas.height);};}
+  }
+  ctx.restore();
+}
+function drawStatRow(ctx,player,ox,oy,W,sc,acc){
+  const sts=Object.entries(player.stats||{});
+  const cw=(W-ox*2*sc)/sts.length;
+  sts.forEach(([k,v],i)=>{
+    const cx=ox*sc+cw*i+cw/2;
+    ctx.font=`bold ${11*sc}px 'Bebas Neue',sans-serif`;ctx.fillStyle='#fff';ctx.textAlign='center';ctx.fillText(v,cx,oy*sc);
+    const bh=20*sc,bw=5*sc,bx=cx-bw/2,by=(oy+3)*sc;
+    ctx.fillStyle=acc+'22';rr(ctx,bx,by,bw,bh,2*sc);ctx.fill();
+    const fc=v>=80?'#4dff91':v>=60?acc:'#ff6b6b';
+    const filled=(v/99)*bh;ctx.fillStyle=fc;rr(ctx,bx,by+bh-filled,bw,filled,2*sc);ctx.fill();
+    ctx.font=`${8.5*sc}px 'Sarabun',sans-serif`;ctx.fillStyle=acc+'bb';ctx.fillText(k,cx,(oy+25)*sc);
+  });
+}
+function drawClassic(canvas,player,W,H,tier){
+  const ctx=canvas.getContext('2d'),sc=W/200,acc=tier.acc;
+  ctx.clearRect(0,0,W,H);
+  const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,tier.bg1);g.addColorStop(1,tier.bg2);
+  ctx.fillStyle=g;rr(ctx,0,0,W,H,12*sc);ctx.fill();
+  for(let i=0;i<500;i++){ctx.fillStyle=`rgba(255,255,255,${Math.random()*.02})`;ctx.fillRect(Math.random()*W,Math.random()*H,1,1);}
+  const bk=8*sc,bl=32*sc;
+  ctx.strokeStyle=acc+'55';ctx.lineWidth=1.5*sc;
+  [[bk,bk,bk+bl,bk],[bk,bk,bk,bk+bl],[W-bk,bk,W-bk-bl,bk],[W-bk,bk,W-bk,bk+bl],
+   [bk,H-bk,bk+bl,H-bk],[bk,H-bk,bk,H-bk-bl],[W-bk,H-bk,W-bk-bl,H-bk],[W-bk,H-bk,W-bk,H-bk-bl]
+  ].forEach(([x1,y1,x2,y2])=>{ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();});
+  ctx.font=`bold ${52*sc}px 'Bebas Neue',sans-serif`;ctx.fillStyle=acc;ctx.textAlign='left';ctx.fillText(player.ovr,16*sc,60*sc);
+  ctx.font=`bold ${14*sc}px 'Bebas Neue',sans-serif`;ctx.fillStyle=acc+'bb';ctx.fillText(player.pos,18*sc,76*sc);
+  const tm=db.teams.find(t=>t.id==player.teamId);
+  if(tm){ctx.font=`600 ${9*sc}px 'Sarabun',sans-serif`;ctx.fillStyle=tm.color;ctx.textAlign='right';ctx.fillText(tm.name.substring(0,14).toUpperCase(),W-15*sc,20*sc);}
+  const iw=120*sc,ih=118*sc,ix=(W-iw)/2,iy=78*sc;
+  ctx.fillStyle=acc+'10';rr(ctx,ix,iy,iw,ih,8*sc);ctx.fill();placePhoto(ctx,player,ix,iy,iw,ih,8*sc,canvas);
+  ctx.strokeStyle=acc+'30';ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(14*sc,206*sc);ctx.lineTo(W-14*sc,206*sc);ctx.stroke();
+  ctx.font=`bold ${20*sc}px 'Bebas Neue',sans-serif`;ctx.fillStyle='#fff';ctx.textAlign='center';
+  ctx.fillText(player.name.toUpperCase().substring(0,15),W/2,222*sc);
+  drawStatRow(ctx,player,14,230,W,sc,acc);
+}
+function drawFifa(canvas,player,W,H,tier){
+  const ctx=canvas.getContext('2d'),sc=W/200,acc=tier.acc;
+  ctx.clearRect(0,0,W,H);
+  const g=ctx.createLinearGradient(0,0,W,H);g.addColorStop(0,tier.bg1);g.addColorStop(0.55,tier.bg2);g.addColorStop(1,tier.bg1);
+  ctx.fillStyle=g;rr(ctx,0,0,W,H,14*sc);ctx.fill();
+  const sh=ctx.createLinearGradient(0,0,W,H*0.5);sh.addColorStop(0,'rgba(255,255,255,0)');sh.addColorStop(0.5,acc+'14');sh.addColorStop(1,'rgba(255,255,255,0)');
+  ctx.fillStyle=sh;ctx.fillRect(0,0,W,H*0.5);
+  ctx.strokeStyle=acc;ctx.lineWidth=2*sc;rr(ctx,3*sc,3*sc,W-6*sc,H-6*sc,13*sc);ctx.stroke();
+  ctx.strokeStyle=acc+'44';ctx.lineWidth=0.5;rr(ctx,7*sc,7*sc,W-14*sc,H-14*sc,10*sc);ctx.stroke();
+  const iw=W-18*sc,ih=158*sc,ix=9*sc,iy=9*sc;
+  ctx.fillStyle=acc+'08';rr(ctx,ix,iy,iw,ih,9*sc);ctx.fill();placePhoto(ctx,player,ix,iy,iw,ih,9*sc,canvas);
+  const fog=ctx.createLinearGradient(0,iy+ih*0.6,0,iy+ih);fog.addColorStop(0,'rgba(0,0,0,0)');fog.addColorStop(1,tier.bg2+'cc');
+  ctx.fillStyle=fog;rr(ctx,ix,iy,iw,ih,9*sc);ctx.fill();
+  const py=170*sc;const pg=ctx.createLinearGradient(0,py,0,H);pg.addColorStop(0,tier.bg2+'f0');pg.addColorStop(1,tier.bg1);
+  ctx.fillStyle=pg;ctx.fillRect(8*sc,py,W-16*sc,H-py-8*sc);
+  ctx.font=`bold ${38*sc}px 'Bebas Neue',sans-serif`;ctx.fillStyle=acc;ctx.textAlign='left';ctx.fillText(player.ovr,16*sc,py+37*sc);
+  ctx.font=`bold ${11*sc}px 'Bebas Neue',sans-serif`;ctx.fillStyle=acc+'cc';ctx.fillText(player.pos,18*sc,py+50*sc);
+  ctx.font=`bold ${18*sc}px 'Bebas Neue',sans-serif`;ctx.fillStyle='#fff';ctx.textAlign='right';ctx.fillText(player.name.toUpperCase().substring(0,13),W-14*sc,py+28*sc);
+  const tm=db.teams.find(t=>t.id==player.teamId);
+  if(tm){ctx.font=`600 ${9*sc}px 'Sarabun',sans-serif`;ctx.fillStyle=tm.color;ctx.textAlign='right';ctx.fillText(tm.name.substring(0,14).toUpperCase(),W-14*sc,py+42*sc);}
+  ctx.strokeStyle=acc+'30';ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(14*sc,py+56*sc);ctx.lineTo(W-14*sc,py+56*sc);ctx.stroke();
+  drawStatRow(ctx,player,14,238,W,sc,acc);
+}
+function drawNeon(canvas,player,W,H,tier){
+  const ctx=canvas.getContext('2d'),sc=W/200,acc=tier.acc;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle=tier.bg1;rr(ctx,0,0,W,H,12*sc);ctx.fill();
+  ctx.save();ctx.strokeStyle=acc+'18';ctx.lineWidth=14*sc;ctx.beginPath();ctx.moveTo(-20,H*0.52);ctx.lineTo(W+20,H*0.22);ctx.stroke();
+  ctx.strokeStyle=acc+'0c';ctx.lineWidth=8*sc;ctx.beginPath();ctx.moveTo(-20,H*0.66);ctx.lineTo(W+20,H*0.38);ctx.stroke();ctx.restore();
+  ctx.shadowBlur=14*sc;ctx.shadowColor=acc;ctx.strokeStyle=acc;ctx.lineWidth=1.5*sc;rr(ctx,4*sc,4*sc,W-8*sc,H-8*sc,10*sc);ctx.stroke();ctx.shadowBlur=0;
+  ctx.strokeStyle=acc+'30';ctx.lineWidth=0.5;rr(ctx,9*sc,9*sc,W-18*sc,H-18*sc,8*sc);ctx.stroke();
+  const iw=128*sc,ih=128*sc,ix=(W-iw)/2,iy=14*sc;
+  ctx.shadowBlur=16*sc;ctx.shadowColor=acc;ctx.strokeStyle=acc+'88';ctx.lineWidth=1*sc;rr(ctx,ix-2,iy-2,iw+4,ih+4,10*sc);ctx.stroke();ctx.shadowBlur=0;
+  ctx.fillStyle='#000';rr(ctx,ix,iy,iw,ih,8*sc);ctx.fill();placePhoto(ctx,player,ix,iy,iw,ih,8*sc,canvas);
+  ctx.shadowBlur=10*sc;ctx.shadowColor=acc;ctx.font=`bold ${46*sc}px 'Bebas Neue',sans-serif`;ctx.fillStyle=acc;ctx.textAlign='center';ctx.fillText(player.ovr,W/2,168*sc);ctx.shadowBlur=0;
+  const pill=30*sc,pillH=14*sc;ctx.fillStyle=acc;rr(ctx,W/2-pill/2,172*sc,pill,pillH,5*sc);ctx.fill();
+  ctx.font=`bold ${10*sc}px 'Bebas Neue',sans-serif`;ctx.fillStyle=tier.bg1;ctx.textAlign='center';ctx.fillText(player.pos,W/2,183.5*sc);
+  ctx.font=`bold ${19*sc}px 'Bebas Neue',sans-serif`;ctx.fillStyle='#fff';ctx.textAlign='center';ctx.fillText(player.name.toUpperCase().substring(0,14),W/2,200*sc);
+  const tm=db.teams.find(t=>t.id==player.teamId);
+  if(tm){ctx.font=`600 ${9*sc}px 'Sarabun',sans-serif`;ctx.fillStyle=tm.color;ctx.fillText(tm.name.toUpperCase(),W/2,213*sc);}
+  ctx.shadowBlur=5*sc;ctx.shadowColor=acc;ctx.strokeStyle=acc+'66';ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(20*sc,218*sc);ctx.lineTo(W-20*sc,218*sc);ctx.stroke();ctx.shadowBlur=0;
+  drawStatRow(ctx,player,14,226,W,sc,acc);
+}
+function drawHolo(canvas,player,W,H,tier){
+  const ctx=canvas.getContext('2d'),sc=W/200,acc=tier.acc;
+  ctx.clearRect(0,0,W,H);ctx.fillStyle='#000';rr(ctx,0,0,W,H,14*sc);ctx.fill();
+  const hw=ctx.createLinearGradient(0,0,W,H);
+  if(tier.name==='Diamond'){hw.addColorStop(0,'#001022');hw.addColorStop(0.5,'#000a18');hw.addColorStop(1,'#001530');}
+  else{hw.addColorStop(0,'#0c0000');hw.addColorStop(0.5,'#000000');hw.addColorStop(1,'#080006');}
+  ctx.fillStyle=hw;rr(ctx,0,0,W,H,14*sc);ctx.fill();
+  for(let i=0;i<3;i++){ctx.shadowBlur=(22-i*6)*sc;ctx.shadowColor=acc;ctx.strokeStyle=i===0?acc:acc+'55';ctx.lineWidth=(1.8-i*0.5)*sc;rr(ctx,(4+i*5)*sc,(4+i*5)*sc,W-(8+i*10)*sc,H-(8+i*10)*sc,(12-i*3)*sc);ctx.stroke();}ctx.shadowBlur=0;
+  [[14,18],[186,30],[8,96],[192,75],[10,195],[190,215],[28,266],[172,255],[100,7]].forEach(([sx,sy])=>{ctx.beginPath();ctx.arc(sx*sc,sy*sc,1.2*sc,0,Math.PI*2);ctx.fillStyle=acc+'99';ctx.fill();});
+  const iw=W-18*sc,ih=160*sc,ix=9*sc,iy=9*sc;
+  ctx.fillStyle='#050510';rr(ctx,ix,iy,iw,ih,10*sc);ctx.fill();placePhoto(ctx,player,ix,iy,iw,ih,10*sc,canvas);
+  const fade=ctx.createLinearGradient(0,iy+ih*0.5,0,iy+ih);fade.addColorStop(0,'rgba(0,0,0,0)');fade.addColorStop(1,'rgba(0,0,0,.92)');
+  ctx.fillStyle=fade;rr(ctx,ix,iy,iw,ih,10*sc);ctx.fill();
+  ctx.shadowBlur=16*sc;ctx.shadowColor=acc;ctx.font=`bold ${52*sc}px 'Bebas Neue',sans-serif`;ctx.fillStyle=acc;ctx.textAlign='left';ctx.fillText(player.ovr,18*sc,155*sc);ctx.shadowBlur=0;
+  ctx.font=`bold ${12*sc}px 'Bebas Neue',sans-serif`;ctx.fillStyle=acc+'cc';ctx.fillText(player.pos,20*sc,167*sc);
+  ctx.font=`bold ${21*sc}px 'Bebas Neue',sans-serif`;ctx.fillStyle='#fff';ctx.textAlign='center';ctx.fillText(player.name.toUpperCase().substring(0,14),W/2,186*sc);
+  const tm=db.teams.find(t=>t.id==player.teamId);
+  if(tm){ctx.font=`600 ${9*sc}px 'Sarabun',sans-serif`;ctx.fillStyle=tm.color;ctx.textAlign='center';ctx.fillText(tm.name.toUpperCase(),W/2,198*sc);}
+  ctx.shadowBlur=8*sc;ctx.shadowColor=acc;ctx.strokeStyle=acc;ctx.lineWidth=0.5;ctx.beginPath();ctx.moveTo(15*sc,204*sc);ctx.lineTo(W-15*sc,204*sc);ctx.stroke();ctx.shadowBlur=0;
+  drawStatRow(ctx,player,13,212,W,sc,acc);
+}
+
+// ═══════════ SPIDER CARD ═══════════
+function drawSpiderCard(canvas,player,W,H){
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=W*dpr;canvas.height=H*dpr;canvas.style.width=W+'px';canvas.style.height=H+'px';
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const tier=getTier(player.ovr);
+  _renderSpider(ctx,player,W,H,tier,1);
+}
+function animateSpiderCard(canvas,player,W,H){
+  const dpr=window.devicePixelRatio||1;
+  canvas.width=W*dpr;canvas.height=H*dpr;canvas.style.width=W+'px';canvas.style.height=H+'px';
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const tier=getTier(player.ovr);
+  const dur=1100,start=performance.now();
+  function ease(t){return t<0.5?4*t*t*t:(t-1)*(2*t-2)*(2*t-2)+1;}
+  function frame(now){
+    const t=Math.min((now-start)/dur,1);
+    _renderSpider(ctx,player,W,H,tier,ease(t));
+    if(t<1) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+function _renderSpider(ctx,player,W,H,tier,prog){
+  ctx.clearRect(0,0,W,H);const acc=tier.acc;
+
+  // derive spider card bg from tier colors
+  // bg1/bg2 from tier + subtle acc tint for visual distinction from front face
+  const bg1=tier.bg1, bg2=tier.bg2;
+  const g=ctx.createLinearGradient(0,0,W,H);
+  g.addColorStop(0,bg1);
+  g.addColorStop(0.5,bg2);
+  g.addColorStop(1,bg1);
+  ctx.fillStyle=g;rr(ctx,0,0,W,H,12);ctx.fill();
+
+  // acc color wash overlay for spider card identity
+  const accWash=ctx.createRadialGradient(W/2,H*0.48,0,W/2,H*0.48,W*0.7);
+  accWash.addColorStop(0,acc+'18');
+  accWash.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=accWash;rr(ctx,0,0,W,H,12);ctx.fill();
+
+  // border with glow for neon/holo
+  if(tier.design==='neon'||tier.design==='holo'){ctx.shadowBlur=10;ctx.shadowColor=acc;}
+  ctx.strokeStyle=acc;ctx.lineWidth=1.8;rr(ctx,2,2,W-4,H-4,11);ctx.stroke();ctx.shadowBlur=0;
+  // inner thin border
+  ctx.strokeStyle=acc+'30';ctx.lineWidth=0.5;rr(ctx,5,5,W-10,H-10,9);ctx.stroke();
+
+  ctx.font=`bold 11px 'Bebas Neue',sans-serif`;ctx.fillStyle=acc;ctx.textAlign='center';ctx.fillText('POWER CHART',W/2,18);
+  ctx.font=`bold 22px 'Bebas Neue',sans-serif`;ctx.fillStyle='#fff';ctx.textAlign='left';ctx.fillText(player.name.toUpperCase().substring(0,14),14,38);
+  ctx.font=`bold 12px 'Bebas Neue',sans-serif`;ctx.fillStyle=acc;ctx.fillText(player.ovr+' OVR',14,52);
+  const posW=28,posH=14;ctx.fillStyle=acc;rr(ctx,W-posW-10,10,posW,posH,4);ctx.fill();
+  ctx.font=`bold 10px 'Bebas Neue',sans-serif`;ctx.fillStyle=bg1;ctx.textAlign='center';ctx.fillText(player.pos,W-posW-10+posW/2,21);
+
+  // tier name badge top-right below pos
+  ctx.font=`bold 8px 'Bebas Neue',sans-serif`;ctx.fillStyle=acc+'88';ctx.textAlign='right';
+  ctx.fillText(tier.name.toUpperCase(),W-10,36);
+
+  const cx=W/2,cy=H*0.47,R=Math.min(W,H)*0.295;
+  const sts=Object.entries(player.stats||{});const n=sts.length;ctx.textAlign='center';
+  for(let lv=0.25;lv<=1;lv+=0.25){
+    ctx.beginPath();
+    sts.forEach((_,i)=>{const a=Math.PI*2*(i/n)-Math.PI/2,x=cx+Math.cos(a)*R*lv,y=cy+Math.sin(a)*R*lv;i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});
+    ctx.closePath();ctx.strokeStyle=`rgba(255,255,255,${0.05+lv*.04})`;ctx.lineWidth=lv===1?1:.5;ctx.stroke();
+    if(lv<1){const labelVal=Math.round(lv*99);const lx=cx+Math.cos(-Math.PI/2)*R*lv+3,ly=cy+Math.sin(-Math.PI/2)*R*lv;
+      ctx.font='500 8px Sarabun,sans-serif';ctx.fillStyle='rgba(255,255,255,.3)';ctx.textAlign='left';ctx.fillText(labelVal,lx,ly+3);}
+  }
+  ctx.textAlign='center';
+  sts.forEach(([k],i)=>{
+    const a=Math.PI*2*(i/n)-Math.PI/2;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(a)*R,cy+Math.sin(a)*R);ctx.strokeStyle='rgba(255,255,255,.12)';ctx.lineWidth=.5;ctx.stroke();
+    const lx=cx+Math.cos(a)*(R+14),ly=cy+Math.sin(a)*(R+14);
+    ctx.font=`bold 9px 'Bebas Neue',sans-serif`;ctx.fillStyle=acc;ctx.fillText(k,lx,ly+3);
+  });
+  const p=Math.min(prog,1);
+  ctx.beginPath();
+  sts.forEach(([k,v],i)=>{const a=Math.PI*2*(i/n)-Math.PI/2,r=(v/99)*p;i===0?ctx.moveTo(cx+Math.cos(a)*R*r,cy+Math.sin(a)*R*r):ctx.lineTo(cx+Math.cos(a)*R*r,cy+Math.sin(a)*R*r);});
+  ctx.closePath();
+  const gf=ctx.createRadialGradient(cx,cy,0,cx,cy,R);gf.addColorStop(0,acc+'55');gf.addColorStop(1,acc+'18');ctx.fillStyle=gf;ctx.fill();
+  if(tier.design==='neon'||tier.design==='holo'){ctx.shadowBlur=8;ctx.shadowColor=acc;}
+  ctx.strokeStyle=acc;ctx.lineWidth=2;ctx.stroke();ctx.shadowBlur=0;
+  sts.forEach(([k,v],i)=>{
+    const a=Math.PI*2*(i/n)-Math.PI/2,r=(v/99)*p;
+    const x=cx+Math.cos(a)*R*r,y=cy+Math.sin(a)*R*r;
+    ctx.beginPath();ctx.arc(x,y,4.5,0,Math.PI*2);ctx.strokeStyle=acc;ctx.lineWidth=1.5;ctx.stroke();
+    ctx.beginPath();ctx.arc(x,y,2.5,0,Math.PI*2);ctx.fillStyle=acc;ctx.fill();
+    if(p>0.7){const a2=Math.min(1,(p-.7)/.3);const vx=cx+Math.cos(a)*(R*r+14),vy=cy+Math.sin(a)*(R*r+14);
+      ctx.font=`bold 9px 'Bebas Neue',sans-serif`;ctx.fillStyle=`rgba(255,255,255,${a2})`;ctx.textAlign='center';ctx.fillText(v,vx,vy+3);}
+  });
+  if(p>0.5){
+    const ca=Math.min(1,(p-.5)/.5);ctx.globalAlpha=ca;
+    ctx.beginPath();ctx.arc(cx,cy,16,0,Math.PI*2);ctx.fillStyle=bg1+'ee';ctx.fill();
+    if(tier.design==='neon'||tier.design==='holo'){ctx.shadowBlur=6;ctx.shadowColor=acc;}
+    ctx.strokeStyle=acc;ctx.lineWidth=1;ctx.stroke();ctx.shadowBlur=0;
+    ctx.font=`bold 14px 'Bebas Neue',sans-serif`;ctx.fillStyle=acc;ctx.textAlign='center';ctx.fillText(player.ovr,cx,cy+5);ctx.globalAlpha=1;
+  }
+  const barArea=H-52,barH=4,barW=(W-28)/n-4;
+  ctx.font=`bold 7.5px 'Bebas Neue',sans-serif`;ctx.textAlign='center';
+  sts.forEach(([k,v],i)=>{
+    const bx=14+i*(barW+4),by=barArea;
+    ctx.fillStyle='rgba(255,255,255,.08)';ctx.beginPath();ctx.roundRect(bx,by,barW,barH,2);ctx.fill();
+    const fc=v>=80?'#4dff91':v>=60?acc:'#ff6b6b';const fw=barW*(v/99)*p;
+    if(fw>0){ctx.fillStyle=fc;ctx.beginPath();ctx.roundRect(bx,by,fw,barH,2);ctx.fill();}
+    ctx.fillStyle=acc+'cc';ctx.fillText(k,bx+barW/2,by+barH+9);ctx.fillStyle='#fff';ctx.fillText(v,bx+barW/2,by-2);
+  });
+}
+
+// ═══════════ PREVIEW ═══════════
+function drawPrev(){
+  const ovr=calcOvr(),tier=getTier(ovr);
+  document.getElementById('ovrShow').textContent=ovr;
+  document.getElementById('tierShow').textContent=tier.name;
+  document.getElementById('designShow').textContent='ดีไซน์: '+{classic:'Classic',fifa:'FIFA Card',neon:'Neon',holo:'Holographic'}[tier.design];
+  const mock={name:document.getElementById('pname').value||'PLAYER',pos:document.getElementById('ppos').value,teamId:document.getElementById('pteam').value,stats:getStats(),ovr,tier:tier.name,photo:photoData};
+  const c=document.getElementById('prevCard');if(c) drawCard(c,mock,200,290);
+}
+
+// ═══════════ OPEN CARD MODAL ═══════════
+function openCard(id){
+  const player=db.players.find(p=>p.id===id);if(!player) return;
+  const tier=getTier(player.ovr),tm=db.teams.find(t=>t.id==player.teamId);
+  const stats=Object.entries(player.stats||{});
+  const bars=stats.map(([k,v])=>{
+    const col=v>=80?'#4dff91':v>=60?tier.acc:'#ff6b6b';
+    return `<div class="srow"><span class="slbl">${k}</span><div class="sbw"><div class="sbf" id="bar_${k}_${id}" style="background:${col}" data-val="${v}"></div></div><span class="svl" style="color:${col}" id="val_${k}_${id}">0</span><span class="snm">${STAT_NAMES[k]||''}</span></div>`;
+  }).join('');
+  const psc=(player.playstyles||[]).map(ps=>{
+    const col=typeof ps==='object'?ps.color:'#fff',nm=typeof ps==='object'?ps.name:ps;
+    return `<span class="psc" style="color:${col};background:${col}18;border-color:${col}44">${nm}</span>`;
+  }).join('');
+  const stc=(player.statuses||[]).map(s=>{
+    const col=typeof s==='object'?s.color:'#fff',nm=typeof s==='object'?s.name:s;
+    return `<span class="psc" style="color:${col};background:${col}22;border-color:${col}66;font-size:12px;padding:4px 12px">${nm}</span>`;
+  }).join('');
+  document.getElementById('modBody').innerHTML=`
+    <div class="mtit">🎴 ${player.name.toUpperCase()}</div>
+    <div class="mdet">
+      <div>
+        <canvas id="mcard" width="250" height="362" style="border-radius:14px;width:100%;box-shadow:0 16px 48px rgba(0,0,0,.7)"></canvas>
+        <div class="view-toggle" style="margin-top:10px">
+          <button class="vt-btn on" id="modTabPhoto" onclick="modShowPhoto(${player.id})">🖼 รูป</button>
+          <button class="vt-btn" id="modTabChart" onclick="modShowChart(${player.id})">📊 ชาร์ต</button>
+        </div>
+        <button class="btnp" style="width:100%;margin-top:8px" onclick="dlCard(${player.id})">⬇ ดาวน์โหลด PNG</button>
+      </div>
+      <div>
+        <div class="dmeta">
+          <span class="bdg bp">${player.pos}</span>
+          ${tm?`<span class="bdg bt">${tm.name}</span>`:''}
+          <span class="bdg br">${player.tier} · ${player.ovr} OVR</span>
+        </div>
+        ${stc?`<div class="pss" style="margin-bottom:10px"><h4>🏷️ สถานะ</h4><div class="psw">${stc}</div></div>`:''}
+        ${psc?`<div class="pss"><h4>⚡ Playstyles</h4><div class="psw">${psc}</div></div>`:''}
+        <div style="margin-bottom:12px"><h4 style="font-size:10px;color:var(--mu);letter-spacing:1px;text-transform:uppercase;margin-bottom:10px">📊 ค่าพลัง</h4><div class="sbars">${bars}</div></div>
+      </div>
+    </div>`;
+  document.getElementById('modOv').classList.add('on');
+  setTimeout(()=>{
+    const mc=document.getElementById('mcard');if(mc) drawCard(mc,player,250,362);
+    // animate stat bars with stagger
+    stats.forEach(([k,v],i)=>{
+      setTimeout(()=>{
+        const bar=document.getElementById(`bar_${k}_${id}`),valEl=document.getElementById(`val_${k}_${id}`);
+        if(bar) bar.style.width=v+'%';
+        if(valEl){let cur=0;const step=v/24;const tm2=setInterval(()=>{cur=Math.min(cur+step,v);valEl.textContent=Math.round(cur);if(cur>=v)clearInterval(tm2);},28);}
+      },i*55);
+    });
+  },40);
+}
+
+function modShowPhoto(id){
+  const player=db.players.find(p=>p.id===id);if(!player) return;
+  const mc=document.getElementById('mcard');if(!mc) return;
+  mc.width=250;mc.height=362;mc.style.width='';mc.style.height='';
+  drawCard(mc,player,250,362);
+  document.getElementById('modTabPhoto').classList.add('on');document.getElementById('modTabChart').classList.remove('on');
+}
+function modShowChart(id){
+  const player=db.players.find(p=>p.id===id);if(!player) return;
+  const mc=document.getElementById('mcard');if(!mc) return;
+  animateSpiderCard(mc,player,250,362);
+  document.getElementById('modTabChart').classList.add('on');document.getElementById('modTabPhoto').classList.remove('on');
+}
+function closeMod(){document.getElementById('modOv').classList.remove('on');}
+document.getElementById('modOv').addEventListener('click',function(e){if(e.target===this)closeMod();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMod();});
+
+// ═══════════ DOWNLOAD ═══════════
+function dlCard(id){
+  const player=db.players.find(p=>p.id===id);if(!player) return;
+  const c=document.createElement('canvas');c.width=400;c.height=580;
+  drawCard(c,player,400,580);
+  setTimeout(()=>{const a=document.createElement('a');a.download=player.name+'_card.png';a.href=c.toDataURL('image/png');a.click();},200);
+}
+
+// ═══════════ NOTIFY ═══════════
+function notif(msg,type='ok'){
+  const el=document.getElementById('notif');
+  el.className='notif '+type;el.textContent=msg;el.classList.add('on');
+  setTimeout(()=>el.classList.remove('on'),3000);
+}
+
+// ═══════════ BOOT ═══════════
+(async()=>{
+  const saved=localStorage.getItem('ca5_fburl');
+  if(saved){FIREBASE_URL=saved;fbConfigured=true;}
+  showSync('syncing');
+  await syncFromFirebase();
+  startPolling();
+})();
+</script>
+
+
+</body></html>
